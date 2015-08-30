@@ -1,0 +1,6 @@
+/bin/
+/downloads/
+/nbproject/
+/build.xml
+/manifest.mf
+*.log
