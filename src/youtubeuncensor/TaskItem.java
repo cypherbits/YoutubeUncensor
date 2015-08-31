@@ -104,6 +104,9 @@ public class TaskItem implements Runnable {
     }
 
     public synchronized void countVideos() {
+
+        this.deleteJSONwithNoVideos();
+
         this.nvideos = new File(Main.DOWNLOAD_DIR + "/" + keyword).listFiles(new FilenameFilter() {
 
             @Override
@@ -115,6 +118,25 @@ public class TaskItem implements Runnable {
                 }
             }
         }).length;
+    }
+
+    public synchronized void deleteJSONwithNoVideos() {
+        //Workaround for bug #8
+
+        //Workaround para youtube-dl en el que descarga el json aunque no descargue el video por los filtros
+        File[] files = new File(Main.DOWNLOAD_DIR + "/" + keyword).listFiles(new FilenameFilter() {
+            @Override
+            public boolean accept(File dir, String name) {
+                return name.endsWith(".json");
+            }
+        });
+
+        for (File file : files) {
+            if (!new File(file.getAbsolutePath() + "/" + file.getName().split(".")[1] + ".mp4").exists()) {
+                file.delete();
+            }
+        }
+
     }
 
     @Override
