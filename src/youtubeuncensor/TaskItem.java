@@ -28,18 +28,19 @@ public class TaskItem implements Runnable {
     public static String STATUS_STOPPED = "stopped";
 
     public static int WAIT_TIME = 20000; //20 SEGUNDOS entre cada lista y descarga.
-    
+
     private File directory;
 
     public TaskItem(int id, String keyword) {
         this.id = id;
         this.keyword = keyword;
-        this.checkDir();
-        this.countVideos();
         this.status = TaskItem.STATUS_STOPPED;
         this.consoleLog = "";
         this.thread = new Thread(this);
         this.directory = new File(Main.DOWNLOAD_DIR + "/" + keyword);
+
+        this.checkDir();
+        this.countVideos();
     }
 
     public void startNewThread() {
@@ -145,7 +146,7 @@ public class TaskItem implements Runnable {
             //Reset console log
             this.consoleLog = "";
 
-            String youtubedl = "./youtube-dl";
+            String youtubedl = "./bin/youtube-dl";
             String youtubeURL = "https://www.youtube.com/results?search_sort=video_date_uploaded&filters=hour&search_query=" + this.keyword;
             String downloadDir = this.directory.getAbsolutePath() + "/" + "%(id)s.%(ext)s";
             String logfile = "already_listed_log.log";

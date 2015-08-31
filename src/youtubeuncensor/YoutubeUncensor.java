@@ -13,7 +13,7 @@ import javafx.stage.Stage;
  */
 public class YoutubeUncensor extends Application {
 
-    public static final String appversion = "v1.0 Beta 1 (26/08/2015)";
+    public static final String appversion = "v1.0 Beta x (x/09/2015)";
 
     @Override
     public void start(Stage stage) throws Exception {
