@@ -6,11 +6,8 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 /**
  *
@@ -31,6 +28,8 @@ public class TaskItem implements Runnable {
     public static String STATUS_STOPPED = "stopped";
 
     public static int WAIT_TIME = 20000; //20 SEGUNDOS entre cada lista y descarga.
+    
+    private File directory;
 
     public TaskItem(int id, String keyword) {
         this.id = id;
@@ -40,6 +39,7 @@ public class TaskItem implements Runnable {
         this.status = TaskItem.STATUS_STOPPED;
         this.consoleLog = "";
         this.thread = new Thread(this);
+        this.directory = new File(Main.DOWNLOAD_DIR + "/" + keyword);
     }
 
     public void startNewThread() {
@@ -97,9 +97,8 @@ public class TaskItem implements Runnable {
     }
 
     public synchronized void checkDir() {
-        File keywordDir = new File(Main.DOWNLOAD_DIR + "/" + this.keyword);
-        if (!keywordDir.exists() || !keywordDir.isDirectory()) {
-            keywordDir.mkdir();
+        if (!this.directory.exists() || !this.directory.isDirectory()) {
+            this.directory.mkdir();
         }
     }
 
@@ -107,7 +106,7 @@ public class TaskItem implements Runnable {
 
         this.deleteJSONwithNoVideos();
 
-        this.nvideos = new File(Main.DOWNLOAD_DIR + "/" + keyword).listFiles(new FilenameFilter() {
+        this.nvideos = this.directory.listFiles(new FilenameFilter() {
 
             @Override
             public boolean accept(File dir, String name) {
@@ -122,9 +121,8 @@ public class TaskItem implements Runnable {
 
     public synchronized void deleteJSONwithNoVideos() {
         //Workaround for bug #8
-
         //Workaround para youtube-dl en el que descarga el json aunque no descargue el video por los filtros
-        File[] files = new File(Main.DOWNLOAD_DIR + "/" + keyword).listFiles(new FilenameFilter() {
+        File[] files = this.directory.listFiles(new FilenameFilter() {
             @Override
             public boolean accept(File dir, String name) {
                 return name.endsWith(".json");
@@ -144,13 +142,12 @@ public class TaskItem implements Runnable {
 
         while (true) {
 
-            //System.out.println("Downloading more of" + this.keyword);
             //Reset console log
             this.consoleLog = "";
 
             String youtubedl = "./youtube-dl";
             String youtubeURL = "https://www.youtube.com/results?search_sort=video_date_uploaded&filters=hour&search_query=" + this.keyword;
-            String downloadDir = Main.DOWNLOAD_DIR + "/" + this.keyword + "/" + "%(id)s.%(ext)s";
+            String downloadDir = this.directory.getAbsolutePath() + "/" + "%(id)s.%(ext)s";
             String logfile = "already_listed_log.log";
 
             String[] command = {youtubedl, youtubeURL, "-o", downloadDir, "--max-filesize", "30.1m", "--download-archive", logfile, "--no-playlist", "--max-downloads", "2", "--write-info-json"};
@@ -159,22 +156,18 @@ public class TaskItem implements Runnable {
             try {
                 Process process = runtime.exec(command);
 
-                //Read out dir output
                 InputStream is = process.getInputStream();
                 InputStreamReader isr = new InputStreamReader(is);
                 BufferedReader br = new BufferedReader(isr);
                 String line;
-                //System.out.printf("Output of running %s is:\n",Arrays.toString(command));
 
                 while ((line = br.readLine()) != null) {
-                    //System.out.println(line);
                     this.consoleLog += line + "\n";
                 }
 
                 //Wait to get exit value
                 try {
                     int exitValue = process.waitFor();
-                    // System.out.println("\n\nExit Value is " + exitValue);
                 } catch (InterruptedException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();

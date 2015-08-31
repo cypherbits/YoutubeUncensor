@@ -14,12 +14,17 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.VBoxBuilder;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -77,7 +82,6 @@ public class Main implements Initializable {
             for (int i = 0; i < taskList.size(); i++) {
                 if (!taskList.get(i).getThread().isAlive()) {
                     taskList.get(i).startNewThread();
-
                 }
             }
 
@@ -85,7 +89,6 @@ public class Main implements Initializable {
             TaskItem ti = (TaskItem) tableView_tasks.getSelectionModel().getSelectedItem();
 
             if (ti != null) {
-
                 startUpdateListThread();
                 ti.startNewThread();
             }
@@ -170,7 +173,6 @@ public class Main implements Initializable {
         tableView_tasks.setItems(taskList);
 
         tableView_tasks.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
-
             @Override
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
 
@@ -194,12 +196,8 @@ public class Main implements Initializable {
             }
         });
 
-        //test
-//        TaskItem tk = new TaskItem(1, "obama", 0);
-//        taskList.add(tk);
         checkFiles();
         startListDir();
-
     }
 
     public void startListDir() {
@@ -225,25 +223,31 @@ public class Main implements Initializable {
         }
 
     }
-    
-    public void checkFiles(){
-        File youtubedl = new File("youtube-dl");
-        if (youtubedl.exists()){
-            if (!youtubedl.canExecute()){
+
+    public void checkFiles() {
+        File youtubedl = new File("bin/youtube-dl");
+        File youtubedlwin = new File("bin/youtube-dl.exe");
+        if (youtubedl.exists() && youtubedlwin.exists()) {
+            if (!youtubedl.canExecute()) {
                 youtubedl.setExecutable(true);
             }
-        }else{
-            //TODO
-            //error message etc...
+        } else {
+
+//            Stage dialogStage = new Stage();
+//            dialogStage.initModality(Modality.WINDOW_MODAL);
+//            dialogStage.setScene(new Scene(VBoxBuilder.create().
+//                    children(new Text("ERROR: some youtube-dl executables doesn't exists or doesn'ts have execution privileges."), new Button("Exit")).
+//                    alignment(Pos.CENTER).padding(new Insets(5)).build()));
+//            dialogStage.show();
+            System.err.println("ERROR: some youtube-dl executables doesn't exists or doesn'ts have execution privileges.");
+            System.exit(-1);
         }
     }
-            
 
     public void startUpdateListThread() {
         if (updateThread == null || !updateThread.isAlive()) {
             updateThread = new Thread() {
                 public void run() {
-                    //System.out.println("Thread: " + getName() + " running");
                     while (true) {
                         updateList();
 
@@ -272,7 +276,6 @@ public class Main implements Initializable {
             }
         }
 
-        //this.btnStartAll.setDisable(somethingRunning);
         this.btnStopAll.setDisable(!somethingRunning);
 
         if (!somethingRunning) {

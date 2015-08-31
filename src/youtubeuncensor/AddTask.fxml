@@ -6,9 +6,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="185.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="youtubeuncensor.AddTaskController">
+<AnchorPane id="AnchorPane" prefHeight="50.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="youtubeuncensor.AddTaskController">
    <children>
-      <TextField fx:id="txtKeyword" layoutX="101.0" layoutY="58.0" prefHeight="25.0" prefWidth="404.0" promptText="Youtube keyword" />
-      <Button fx:id="btnAdd" layoutX="233.0" layoutY="150.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Add task" />
+      <TextField fx:id="txtKeyword" layoutX="101.0" layoutY="29.0" prefHeight="25.0" prefWidth="404.0" promptText="Youtube keyword" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="10.0" />
+      <Button fx:id="btnAdd" defaultButton="true" layoutX="510.0" layoutY="12.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Add task" AnchorPane.leftAnchor="515.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
    </children>
 </AnchorPane>

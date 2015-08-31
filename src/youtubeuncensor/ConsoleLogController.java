@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
-import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -30,6 +29,7 @@ public class ConsoleLogController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
         ConsoleLogController.th = new Thread() {
+            @Override
             public void run() {
                 while (true) {
 
