@@ -220,26 +220,6 @@ public class Main implements Initializable {
 
                 taskList.add(tk);
 
-                //Workaround para youtube-dl en el que descarga el json aunque no descargue el video por los filtros
-//                File[] files = keywordListDirs[i].listFiles(new FilenameFilter() {
-//
-//                    @Override
-//                    public boolean accept(File dir, String name) {
-//                        if (name.endsWith(".json")) {
-//                            return true;
-//                        } else {
-//                            return false;
-//                        }
-//                    }
-//                });
-//
-//                for (int k = 0; k < files.length; k++) {
-//                    if (!new File(files[k].getAbsolutePath() + "/" + files[k].getName().split(".")[1] + ".mp4").exists()) {
-//                        //borrar json
-//                        
-//                    }
-//                }
-
                 j++;
             }
         }
