@@ -96,11 +96,7 @@ public class Main implements Initializable {
                 ti.stopThread();
             }
         } else if (source == this.btnStopAll) {
-            for (int i = 0; i < taskList.size(); i++) {
-                if (taskList.get(i).getThread().isAlive()) {
-                    taskList.get(i).stopThread();
-                }
-            }
+            stopAllTasks();
         } else if (source == this.btnAddTask) {
             try {
                 Parent root;
@@ -260,6 +256,7 @@ public class Main implements Initializable {
                 }
             };
 
+            updateThread.setDaemon(true);
             updateThread.start();
         }
     }
@@ -279,6 +276,25 @@ public class Main implements Initializable {
         if (!somethingRunning) {
             updateThread.stop();
         }
+    }
+
+    //Stop all Tasks (no updater thread)
+    private static void stopAllTasks() {
+        for (int i = 0; i < taskList.size(); i++) {
+            if (taskList.get(i).getThread().isAlive()) {
+                taskList.get(i).stopThread();
+            }
+        }
+    }
+
+    public static void properExit() {
+
+        stopAllTasks();
+
+        if (updateThread.isAlive()) {
+            updateThread.stop();
+        }
+
     }
 
 }

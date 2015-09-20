@@ -34,4 +34,9 @@ public class YoutubeUncensor extends Application {
         launch(args);
     }
 
+    @Override
+    public void stop() {
+        Main.properExit();
+    }
+
 }

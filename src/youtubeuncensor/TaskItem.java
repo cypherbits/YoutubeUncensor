@@ -48,6 +48,8 @@ public class TaskItem implements Runnable {
         this.setStatus(TaskItem.STATUS_RUNNING);
 
         this.thread = new Thread(this);
+        
+        thread.setDaemon(true);
 
         thread.start();
     }
@@ -131,7 +133,8 @@ public class TaskItem implements Runnable {
         });
 
         for (File file : files) {
-            if (!new File(file.getAbsolutePath() + "/" + file.getName().split(".")[1] + ".mp4").exists()) {
+            String name = file.getName().split(".",1)[0];
+            if (!(new File(file.getAbsolutePath() + "/" + name + ".mp4").exists())) {
                 file.delete();
             }
         }
