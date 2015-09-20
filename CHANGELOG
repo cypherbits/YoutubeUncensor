@@ -1,2 +1,10 @@
+v1.0 Beta 2 (20/09/2015):
+-Feature: Windows support.
+-Feature: Delete tasks.
+-Fix, workaround: youtube-dl downloads all metadata from all listed videos.
+-Test if core youtube-dl files exists.
+-Fix: make sure all threads stop when the main windows is closed.
+
+
 Youtube Uncensor v1.0 Beta 1 (26/08/2015):
 -Initial public release
