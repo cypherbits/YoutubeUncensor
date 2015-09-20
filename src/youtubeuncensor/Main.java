@@ -314,7 +314,7 @@ public class Main implements Initializable {
 
         stopAllTasks();
 
-        if (updateThread.isAlive()) {
+        if (updateThread != null && updateThread.isAlive()) {
             updateThread.stop();
         }
 
