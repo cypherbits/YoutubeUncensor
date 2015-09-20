@@ -1,9 +1,11 @@
 # **YoutubeUncensor**
 Java 8/JavaFX GUI for collecting Youtube videos using the youtube-dl tool.
 
+**Binary download:** https://avanix.es/producto/20-YoutubeUncensor
+
 # **Tips:**
 
- - Create a directory called *"bin"* and place inside the *youtube-dl* executables. For Linux/Mac and then for Windows (.exe), Windows will be supported in future releases.
+ - Create a directory called *"bin"* and place inside the *youtube-dl* executables. For Linux/Mac and then for Windows (.exe).
 
 # **Licence:**
 
