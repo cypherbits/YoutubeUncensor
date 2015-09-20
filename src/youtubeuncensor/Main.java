@@ -3,6 +3,7 @@ package youtubeuncensor;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,6 +20,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -111,6 +113,27 @@ public class Main implements Initializable {
             }
 
         } else if (source == this.btnRemoveTask) {
+
+            TaskItem ti = (TaskItem) tableView_tasks.getSelectionModel().getSelectedItem();
+
+            if (ti != null) {
+
+                Alert alert = new Alert(AlertType.CONFIRMATION);
+                alert.setTitle("Are you sure?");
+                alert.setHeaderText("This will delete the task and THE FILES.");
+                alert.setContentText("Are you ok with this?");
+
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK) {
+                    
+                    ti.deleteAllFiles();
+
+                    taskList.remove(ti);
+                } else {
+                    //cancel
+                }
+
+            }
 
         } else if (source == this.btnShowLog) {
             TaskItem ti = (TaskItem) tableView_tasks.getSelectionModel().getSelectedItem();

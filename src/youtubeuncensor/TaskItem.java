@@ -140,6 +140,16 @@ public class TaskItem implements Runnable {
         }
 
     }
+    
+    public void deleteAllFiles(){
+        File[] files = this.directory.listFiles();
+
+        for (File file : files) {
+                file.delete();
+        }
+        
+        this.directory.delete();
+    }
 
     @Override
     public void run() {
