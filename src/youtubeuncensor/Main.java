@@ -162,8 +162,6 @@ public class Main implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        Main.DOWNLOAD_DIR = YoutubeUncensor.jarPath + "/" + Main.DOWNLOAD_DIR;
-
         taskList = FXCollections.observableArrayList();
 
         tableView_tasks.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
@@ -243,8 +241,9 @@ public class Main implements Initializable {
     }
 
     public void checkFiles() {
-        File youtubedl = new File(YoutubeUncensor.jarPath + "/bin/youtube-dl");
-        File youtubedlwin = new File(YoutubeUncensor.jarPath + "/bin/youtube-dl.exe");
+        System.out.println(YoutubeUncensor.jarPath);
+        File youtubedl = new File("./bin/youtube-dl");
+        File youtubedlwin = new File("./bin/youtube-dl.exe");
         if (youtubedl.exists() && youtubedlwin.exists()) {
             if (!youtubedl.canExecute()) {
                 youtubedl.setExecutable(true);
