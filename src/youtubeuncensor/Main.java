@@ -241,7 +241,6 @@ public class Main implements Initializable {
     }
 
     public void checkFiles() {
-        System.out.println(YoutubeUncensor.jarPath);
         File youtubedl = new File("./bin/youtube-dl");
         File youtubedlwin = new File("./bin/youtube-dl.exe");
         if (youtubedl.exists() && youtubedlwin.exists()) {
