@@ -146,7 +146,15 @@ public class TaskItem implements Runnable {
             //Reset console log
             this.consoleLog = "";
 
-            String youtubedl = "./bin/youtube-dl";
+            String youtubedl;
+            if (System.getProperty("os.name").startsWith("Windows")) {
+                // includes: Windows 2000,  Windows 95, Windows 98, Windows NT, Windows Vista, Windows XP
+                youtubedl = "./bin/youtube-dl.exe";
+            } else {
+                // everything else
+                youtubedl = "./bin/youtube-dl";
+            }
+
             String youtubeURL = "https://www.youtube.com/results?search_sort=video_date_uploaded&filters=hour&search_query=" + this.keyword;
             String downloadDir = this.directory.getAbsolutePath() + "/" + "%(id)s.%(ext)s";
             String logfile = "already_listed_log.log";

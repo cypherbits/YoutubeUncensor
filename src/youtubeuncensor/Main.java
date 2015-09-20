@@ -229,13 +229,13 @@ public class Main implements Initializable {
                 youtubedl.setExecutable(true);
             }
         } else {
-            
-            Alert alert = new Alert(AlertType.ERROR);
-alert.setTitle("Error");
-alert.setHeaderText(null);
-alert.setContentText("Error: youtube-dl files not found or cannot execute!");
 
-alert.showAndWait();
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Error: youtube-dl files not found or cannot execute!");
+
+            alert.showAndWait();
 
             System.err.println("ERROR: some youtube-dl executables doesn't exists or doesn'ts have execution privileges.");
             System.exit(-1);
