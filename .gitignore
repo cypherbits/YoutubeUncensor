@@ -4,3 +4,5 @@
 /build.xml
 /manifest.mf
 *.log
+/build/
+/dist/

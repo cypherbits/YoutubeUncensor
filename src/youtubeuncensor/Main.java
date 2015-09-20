@@ -14,17 +14,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.VBoxBuilder;
-import javafx.scene.text.Text;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -232,13 +229,14 @@ public class Main implements Initializable {
                 youtubedl.setExecutable(true);
             }
         } else {
+            
+            Alert alert = new Alert(AlertType.ERROR);
+alert.setTitle("Error");
+alert.setHeaderText(null);
+alert.setContentText("Error: youtube-dl files not found or cannot execute!");
 
-//            Stage dialogStage = new Stage();
-//            dialogStage.initModality(Modality.WINDOW_MODAL);
-//            dialogStage.setScene(new Scene(VBoxBuilder.create().
-//                    children(new Text("ERROR: some youtube-dl executables doesn't exists or doesn'ts have execution privileges."), new Button("Exit")).
-//                    alignment(Pos.CENTER).padding(new Insets(5)).build()));
-//            dialogStage.show();
+alert.showAndWait();
+
             System.err.println("ERROR: some youtube-dl executables doesn't exists or doesn'ts have execution privileges.");
             System.exit(-1);
         }
