@@ -125,7 +125,7 @@ public class Main implements Initializable {
 
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == ButtonType.OK) {
-                    
+
                     ti.deleteAllFiles();
 
                     taskList.remove(ti);
@@ -161,6 +161,8 @@ public class Main implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
+        Main.DOWNLOAD_DIR = YoutubeUncensor.jarPath + "/" + Main.DOWNLOAD_DIR;
 
         taskList = FXCollections.observableArrayList();
 
@@ -241,8 +243,8 @@ public class Main implements Initializable {
     }
 
     public void checkFiles() {
-        File youtubedl = new File("bin/youtube-dl");
-        File youtubedlwin = new File("bin/youtube-dl.exe");
+        File youtubedl = new File(YoutubeUncensor.jarPath + "/bin/youtube-dl");
+        File youtubedlwin = new File(YoutubeUncensor.jarPath + "/bin/youtube-dl.exe");
         if (youtubedl.exists() && youtubedlwin.exists()) {
             if (!youtubedl.canExecute()) {
                 youtubedl.setExecutable(true);

@@ -177,7 +177,7 @@ public class TaskItem implements Runnable {
 
             try {
                 Process process = runtime.exec(command);
-
+                
                 InputStream is = process.getInputStream();
                 InputStreamReader isr = new InputStreamReader(is);
                 BufferedReader br = new BufferedReader(isr);

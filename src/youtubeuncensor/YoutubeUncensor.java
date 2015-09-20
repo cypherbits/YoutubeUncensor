@@ -1,5 +1,6 @@
 package youtubeuncensor;
 
+import java.io.File;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,10 +14,15 @@ import javafx.stage.Stage;
  */
 public class YoutubeUncensor extends Application {
 
-    public static final String appversion = "v1.0 Beta 2 (20/09/2015)";
+    public static final String appversion = "v1.0 Beta 3 (x/09/2015)";
+    
+    public static String jarPath;
 
     @Override
     public void start(Stage stage) throws Exception {
+        
+        jarPath = new File(getClass().getProtectionDomain().getCodeSource().getLocation().getPath()).getParent();
+        
         Parent root = FXMLLoader.load(getClass().getResource("Main.fxml"));
 
         Scene scene = new Scene(root);
