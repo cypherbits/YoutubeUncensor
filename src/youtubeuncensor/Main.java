@@ -1,5 +1,6 @@
 package youtubeuncensor;
 
+import youtubeuncensor.core.TaskItem;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -46,6 +47,8 @@ public class Main implements Initializable {
     private Button btnRemoveTask;
     @FXML
     private Button btnShowLog;
+    @FXML
+    private Button btnPreferences;
     @FXML
     private Button btnAbout;
 
@@ -154,6 +157,20 @@ public class Main implements Initializable {
                 } catch (IOException ex) {
                     Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
                 }
+            }
+
+        } else if (source == this.btnPreferences) {
+            
+             try {
+                Parent root;
+                root = FXMLLoader.load(getClass().getResource("GlobalConfig.fxml"));
+                Stage stage = new Stage();
+                stage.setTitle("Preferences");
+                stage.setScene(new Scene(root));
+                stage.setResizable(false);
+                stage.show();
+            } catch (IOException ex) {
+                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }

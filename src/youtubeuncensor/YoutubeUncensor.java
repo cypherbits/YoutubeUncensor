@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import youtubeuncensor.core.PreferencesHelper;
 
 /**
  *
@@ -17,6 +18,9 @@ public class YoutubeUncensor extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        
+        this.initPreferences();
+        
         Parent root = FXMLLoader.load(getClass().getResource("Main.fxml"));
 
         Scene scene = new Scene(root);
@@ -37,6 +41,12 @@ public class YoutubeUncensor extends Application {
     @Override
     public void stop() {
         Main.properExit();
+    }
+    
+    public void initPreferences(){
+        if (PreferencesHelper.getPreference("download_dir") != null){
+            Main.DOWNLOAD_DIR = PreferencesHelper.getPreference("download_dir");
+        }
     }
 
 }
