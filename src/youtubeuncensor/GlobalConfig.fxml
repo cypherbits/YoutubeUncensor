@@ -16,14 +16,15 @@
                <content>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <Button layoutX="523.0" layoutY="322.0" mnemonicParsing="false" text="Apply" AnchorPane.bottomAnchor="19.0" AnchorPane.rightAnchor="15.0" />
+                        <Button fx:id="global_btnApply" layoutX="523.0" layoutY="322.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Apply" AnchorPane.bottomAnchor="19.0" AnchorPane.rightAnchor="15.0" />
                         <Label layoutX="26.0" layoutY="22.0" text="Download folder">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
                         <TextField fx:id="global_txtDownloadPath" editable="false" layoutX="26.0" layoutY="48.0" prefHeight="26.0" prefWidth="448.0" AnchorPane.leftAnchor="26.0" AnchorPane.rightAnchor="126.0" AnchorPane.topAnchor="48.0" />
-                        <Button layoutX="481.0" layoutY="48.0" mnemonicParsing="false" text="Select" AnchorPane.leftAnchor="481.0" AnchorPane.rightAnchor="57.0" AnchorPane.topAnchor="48.0" />
+                        <Button fx:id="global_btnChange" layoutX="481.0" layoutY="48.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Select" AnchorPane.rightAnchor="57.0" AnchorPane.topAnchor="48.0" />
+                        <Label layoutY="84.0" prefHeight="32.0" prefWidth="600.0" text="Restart the app for the changes to take effect. Changing the download folder the older will not be affected." wrapText="true" AnchorPane.leftAnchor="26.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="84.0" />
                      </children>
                   </AnchorPane>
                </content></Tab>

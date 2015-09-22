@@ -38,7 +38,7 @@ public class TaskItem implements Runnable {
         this.status = TaskItem.STATUS_STOPPED;
         this.consoleLog = "";
         this.thread = new Thread(this);
-        this.directory = new File(Main.DOWNLOAD_DIR + "/" + keyword);
+        this.directory = new File(Main.NOW_DOWNLOAD_DIR + "/" + keyword);
 
         this.checkDir();
         this.countVideos();

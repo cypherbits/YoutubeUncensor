@@ -44,8 +44,8 @@ public class YoutubeUncensor extends Application {
     }
     
     public void initPreferences(){
-        if (PreferencesHelper.getPreference("download_dir") != null){
-            Main.DOWNLOAD_DIR = PreferencesHelper.getPreference("download_dir");
+        if (PreferencesHelper.getPreference(PreferencesHelper.DOWNLOAD_DIR_NAME) != null){
+            Main.NOW_DOWNLOAD_DIR = PreferencesHelper.getPreference(PreferencesHelper.DOWNLOAD_DIR_NAME);
         }
     }
 

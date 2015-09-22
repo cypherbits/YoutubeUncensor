@@ -8,6 +8,8 @@ import youtubeuncensor.YoutubeUncensor;
  * @author juanjo
  */
 public class PreferencesHelper {
+    
+    public static final String DOWNLOAD_DIR_NAME = "download_dir";
 
     public static String getPreference(String name) {
         Preferences prefs = Preferences.userNodeForPackage(YoutubeUncensor.class);

@@ -59,7 +59,7 @@ public class Main implements Initializable {
 
     private static Thread updateThread;
 
-    public static String DOWNLOAD_DIR = "downloads";
+    public static String NOW_DOWNLOAD_DIR = "downloads";
 
     @FXML
     private void handleButtonAction(ActionEvent event) {
@@ -235,7 +235,7 @@ public class Main implements Initializable {
 
     public void startListDir() {
 
-        File downloadDir = new File(Main.DOWNLOAD_DIR);
+        File downloadDir = new File(Main.NOW_DOWNLOAD_DIR);
         if (!downloadDir.exists() || !downloadDir.isDirectory()) {
             downloadDir.mkdir();
         }
