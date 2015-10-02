@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
@@ -19,7 +20,7 @@ import youtubeuncensor.core.PreferencesHelper;
  * @author juanjo
  */
 public class GlobalConfigController implements Initializable {
-    
+
     @FXML
     Parent root;
     @FXML
@@ -28,6 +29,14 @@ public class GlobalConfigController implements Initializable {
     private Button global_btnChange;
     @FXML
     private Button global_btnApply;
+    @FXML
+    private Button default_btnApply;
+    @FXML
+    private TextField default_txtMaxSize;
+    @FXML
+    private TextField default_txtTime;
+     @FXML
+    private CheckBox default_checkStopError;
 
     /**
      * Initializes the controller class.
@@ -54,9 +63,9 @@ public class GlobalConfigController implements Initializable {
 
             File selectedDirectory = directoryChooser.showDialog((Stage) root.getScene().getWindow());
 
-            if (selectedDirectory != null && selectedDirectory.exists()){
+            if (selectedDirectory != null && selectedDirectory.exists()) {
                 //TODO: loop while directory is not empty.
-                
+
                 global_txtDownloadPath.setText(selectedDirectory.getAbsolutePath());
             }
         }

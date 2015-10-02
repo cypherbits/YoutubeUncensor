@@ -34,7 +34,7 @@
                      <children>
                         <TitledPane animated="false" collapsible="false" prefHeight="200.0" prefWidth="200.0" text="Default config for new tasks" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <content>
-                              <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0">
+                              <VBox prefHeight="313.0" prefWidth="598.0" spacing="10.0">
                                  <padding>
                                     <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
                                  </padding>
@@ -43,7 +43,11 @@
                                  </opaqueInsets>
                                  <children>
                                     <Label text="Max. file sizes" />
-                                    <TextField prefHeight="26.0" prefWidth="309.0" />
+                                    <TextField fx:id="default_txtMaxSize" prefHeight="26.0" prefWidth="309.0" promptText="33.3" />
+                                    <Label text="Time between searches, in seconds" />
+                                    <TextField fx:id="default_txtTime" promptText="min: 15" />
+                                    <CheckBox fx:id="default_checkStopError" disable="true" mnemonicParsing="false" text="Stop Tasks on youtube-dl error" />
+                                    <Button fx:id="default_btnApply" mnemonicParsing="false" text="Apply" />
                                  </children>
                               </VBox>
                            </content>
