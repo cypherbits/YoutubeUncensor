@@ -24,7 +24,7 @@
                         </Label>
                         <TextField fx:id="global_txtDownloadPath" editable="false" layoutX="26.0" layoutY="48.0" prefHeight="26.0" prefWidth="448.0" AnchorPane.leftAnchor="26.0" AnchorPane.rightAnchor="126.0" AnchorPane.topAnchor="48.0" />
                         <Button fx:id="global_btnChange" layoutX="481.0" layoutY="48.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Select" AnchorPane.rightAnchor="57.0" AnchorPane.topAnchor="48.0" />
-                        <Label layoutY="84.0" prefHeight="32.0" prefWidth="600.0" text="Restart the app for the changes to take effect. Changing the download folder the older will not be affected." wrapText="true" AnchorPane.leftAnchor="26.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="84.0" />
+                        <Label layoutY="84.0" prefHeight="32.0" prefWidth="600.0" text="Restart the app for the changes to take effect. If you change the download folder the older one will not be affected, nothing is deleted." wrapText="true" AnchorPane.leftAnchor="26.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="84.0" />
                      </children>
                   </AnchorPane>
                </content></Tab>
@@ -42,8 +42,8 @@
                                     <Insets />
                                  </opaqueInsets>
                                  <children>
-                                    <Label text="Max. file sizes" />
-                                    <TextField fx:id="default_txtMaxSize" prefHeight="26.0" prefWidth="309.0" promptText="33.3" />
+                                    <Label text="Max. file sizes (in MiB)" />
+                                    <TextField fx:id="default_txtMaxSize" prefHeight="26.0" prefWidth="309.0" promptText="33" />
                                     <Label text="Time between searches, in seconds" />
                                     <TextField fx:id="default_txtTime" promptText="min: 15" />
                                     <CheckBox fx:id="default_checkStopError" disable="true" mnemonicParsing="false" text="Stop Tasks on youtube-dl error" />
