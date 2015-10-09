@@ -28,8 +28,9 @@ public class TaskItem implements Runnable {
     public static final String STATUS_RUNNING = "running";
     public static final String STATUS_STOPPED = "stopped";
 
-    private int WAIT_TIME = 20000; //20 SEGUNDOS entre cada lista y descarga.
-    private float MAX_FILESIZE = 30.1f; 
+    public static int _WAIT_TIME = 20000; //20 SEGUNDOS entre cada lista y descarga.
+    public static float _MAX_FILESIZE = 30.1f; 
+    public static boolean _STOP_ON_ERROR = true;
 
     private File directory;
 
@@ -174,7 +175,7 @@ public class TaskItem implements Runnable {
             String downloadDir = this.directory.getAbsolutePath() + "/" + "%(id)s.%(ext)s";
             String logfile = "already_listed_log.log";
 
-            String[] command = {youtubedl, youtubeURL, "-o", downloadDir, "--max-filesize", String.valueOf(this.MAX_FILESIZE)+"m", "--download-archive", logfile, "--no-playlist", "--max-downloads", "2", "--write-info-json"};
+            String[] command = {youtubedl, youtubeURL, "-o", downloadDir, "--max-filesize", String.valueOf(this._MAX_FILESIZE)+"m", "--download-archive", logfile, "--no-playlist", "--max-downloads", "2", "--write-info-json"};
             Runtime runtime = Runtime.getRuntime();
 
             try {
@@ -204,7 +205,7 @@ public class TaskItem implements Runnable {
             this.countVideos();
 
             try {
-                Thread.sleep(this.WAIT_TIME);
+                Thread.sleep(this._WAIT_TIME);
             } catch (InterruptedException ex) {
                 Logger.getLogger(TaskItem.class.getName()).log(Level.SEVERE, null, ex);
             }

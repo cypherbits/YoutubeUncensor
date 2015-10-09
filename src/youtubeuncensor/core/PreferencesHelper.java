@@ -10,6 +10,8 @@ import youtubeuncensor.YoutubeUncensor;
 public class PreferencesHelper {
     
     public static final String DOWNLOAD_DIR_NAME = "download_dir";
+    public static final String DEFAULT_FILESIZE_NAME = "default_filesize";
+    public static final String DEFAULT_WAITTIME_NAME = "default_waitime";
 
     public static String getPreference(String name) {
         Preferences prefs = Preferences.userNodeForPackage(YoutubeUncensor.class);
