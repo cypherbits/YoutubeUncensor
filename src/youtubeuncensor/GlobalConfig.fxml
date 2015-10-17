@@ -43,10 +43,10 @@
                                  </opaqueInsets>
                                  <children>
                                     <Label text="Max. file sizes (in MiB)" />
-                                    <TextField fx:id="default_txtMaxSize" prefHeight="26.0" prefWidth="309.0" promptText="33" />
+                                    <TextField fx:id="default_txtMaxSize" prefHeight="26.0" prefWidth="309.0" promptText="30.1" />
                                     <Label text="Time between searches, in seconds" />
                                     <TextField fx:id="default_txtTime" promptText="min: 15" />
-                                    <CheckBox fx:id="default_checkStopError" disable="true" mnemonicParsing="false" text="Stop Tasks on youtube-dl error" />
+                                    <CheckBox fx:id="default_checkStopError" mnemonicParsing="false" text="Stop Tasks on youtube-dl error" />
                                     <Button fx:id="default_btnApply" mnemonicParsing="false" text="Apply" />
                                  </children>
                               </VBox>

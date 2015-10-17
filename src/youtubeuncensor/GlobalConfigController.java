@@ -35,7 +35,7 @@ public class GlobalConfigController implements Initializable {
     private TextField default_txtMaxSize;
     @FXML
     private TextField default_txtTime;
-     @FXML
+    @FXML
     private CheckBox default_checkStopError;
 
     /**
@@ -44,7 +44,11 @@ public class GlobalConfigController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        global_txtDownloadPath.setText(new File(Main.NOW_DOWNLOAD_DIR).getAbsolutePath());
+        global_txtDownloadPath.setText(new File(PreferencesHelper.getPreference(PreferencesHelper._PREFNAME_DOWNLOAD_DIR)).getAbsolutePath());
+
+        default_checkStopError.setSelected(Boolean.parseBoolean(PreferencesHelper.getPreference(PreferencesHelper._PREFNAME_DEFAULT_STOPONERROR)));
+        default_txtMaxSize.setText(PreferencesHelper.getPreference(PreferencesHelper._PREFNAME_DEFAULT_FILESIZE));
+        default_txtTime.setText(PreferencesHelper.getPreference(PreferencesHelper._PREFNAME_DEFAULT_WAITTIME));
 
     }
 
@@ -53,7 +57,7 @@ public class GlobalConfigController implements Initializable {
         Object source = event.getSource();
 
         if (source == this.global_btnApply) {
-            PreferencesHelper.setPreference(PreferencesHelper.DOWNLOAD_DIR_NAME, global_txtDownloadPath.getText());
+            PreferencesHelper.setPreference(PreferencesHelper._PREFNAME_DOWNLOAD_DIR, global_txtDownloadPath.getText());
 
         } else if (source == this.global_btnChange) {
 
@@ -68,6 +72,15 @@ public class GlobalConfigController implements Initializable {
 
                 global_txtDownloadPath.setText(selectedDirectory.getAbsolutePath());
             }
+        } else if (source == this.default_btnApply) {
+            String txtMaxSize = this.default_txtMaxSize.getText();
+            String txtWaitTime = this.default_txtTime.getText();
+            String stopOnError = String.valueOf(this.default_checkStopError.isSelected());
+
+            PreferencesHelper.setPreference(PreferencesHelper._PREFNAME_DEFAULT_FILESIZE, txtMaxSize);
+            PreferencesHelper.setPreference(PreferencesHelper._PREFNAME_DEFAULT_WAITTIME, txtWaitTime);
+            PreferencesHelper.setPreference(PreferencesHelper._PREFNAME_DEFAULT_STOPONERROR, stopOnError);
+
         }
     }
 }

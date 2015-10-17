@@ -26,6 +26,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import youtubeuncensor.core.PreferencesHelper;
 
 /**
  *
@@ -58,8 +59,6 @@ public class Main implements Initializable {
     public static ObservableList<TaskItem> taskList;
 
     private static Thread updateThread;
-
-    public static String NOW_DOWNLOAD_DIR = "downloads";
 
     @FXML
     private void handleButtonAction(ActionEvent event) {
@@ -160,8 +159,8 @@ public class Main implements Initializable {
             }
 
         } else if (source == this.btnPreferences) {
-            
-             try {
+
+            try {
                 Parent root;
                 root = FXMLLoader.load(getClass().getResource("GlobalConfig.fxml"));
                 Stage stage = new Stage();
@@ -235,9 +234,20 @@ public class Main implements Initializable {
 
     public void startListDir() {
 
-        File downloadDir = new File(Main.NOW_DOWNLOAD_DIR);
+        File downloadDir = new File(PreferencesHelper.PREF_DOWNLOAD_DIR);
         if (!downloadDir.exists() || !downloadDir.isDirectory()) {
-            downloadDir.mkdir();
+            try {
+                downloadDir.mkdir();
+            } catch (Exception e) {
+                //e.printStackTrace();
+
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Error creating the keyword directory.");
+                alert.setContentText(e.getMessage());
+
+                alert.showAndWait();
+            }
         }
 
         File[] keywordListDirs = downloadDir.listFiles();
