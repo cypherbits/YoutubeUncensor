@@ -1,5 +1,6 @@
 package youtubeuncensor;
 
+import youtubeuncensor.core.TaskItem;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -25,6 +26,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import youtubeuncensor.core.PreferencesHelper;
 
 /**
  *
@@ -47,6 +49,8 @@ public class Main implements Initializable {
     @FXML
     private Button btnShowLog;
     @FXML
+    private Button btnPreferences;
+    @FXML
     private Button btnAbout;
 
     @FXML
@@ -55,8 +59,6 @@ public class Main implements Initializable {
     public static ObservableList<TaskItem> taskList;
 
     private static Thread updateThread;
-
-    public static String DOWNLOAD_DIR = "downloads";
 
     @FXML
     private void handleButtonAction(ActionEvent event) {
@@ -156,6 +158,20 @@ public class Main implements Initializable {
                 }
             }
 
+        } else if (source == this.btnPreferences) {
+
+            try {
+                Parent root;
+                root = FXMLLoader.load(getClass().getResource("GlobalConfig.fxml"));
+                Stage stage = new Stage();
+                stage.setTitle("Preferences");
+                stage.setScene(new Scene(root));
+                stage.setResizable(false);
+                stage.show();
+            } catch (IOException ex) {
+                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
         }
     }
 
@@ -218,9 +234,20 @@ public class Main implements Initializable {
 
     public void startListDir() {
 
-        File downloadDir = new File(Main.DOWNLOAD_DIR);
+        File downloadDir = new File(PreferencesHelper.PREF_DOWNLOAD_DIR);
         if (!downloadDir.exists() || !downloadDir.isDirectory()) {
-            downloadDir.mkdir();
+            try {
+                downloadDir.mkdir();
+            } catch (Exception e) {
+                //e.printStackTrace();
+
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Error creating the keyword directory.");
+                alert.setContentText(e.getMessage());
+
+                alert.showAndWait();
+            }
         }
 
         File[] keywordListDirs = downloadDir.listFiles();

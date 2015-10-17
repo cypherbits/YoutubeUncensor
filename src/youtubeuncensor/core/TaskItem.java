@@ -1,4 +1,4 @@
-package youtubeuncensor;
+package youtubeuncensor.core;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -24,10 +24,15 @@ public class TaskItem implements Runnable {
 
     private String consoleLog;
 
-    public static String STATUS_RUNNING = "running";
-    public static String STATUS_STOPPED = "stopped";
+    public static final String STATUS_RUNNING = "running";
+    public static final String STATUS_STOPPED = "stopped";
 
-    public static int WAIT_TIME = 20000; //20 SEGUNDOS entre cada lista y descarga.
+    private static final String PREF_LOGFILE = "already_listed_log.log";
+
+    //Runtime individual TaskItem preferences
+    public int PREF_WAIT_TIME;
+    public float PREF_MAX_FILESIZE;
+    public boolean PREF_STOP_ON_ERROR;
 
     private File directory;
 
@@ -37,10 +42,18 @@ public class TaskItem implements Runnable {
         this.status = TaskItem.STATUS_STOPPED;
         this.consoleLog = "";
         this.thread = new Thread(this);
-        this.directory = new File(Main.DOWNLOAD_DIR + "/" + keyword);
+        this.directory = new File(PreferencesHelper.PREF_DOWNLOAD_DIR + "/" + keyword);
 
+        this.loadPreferences();
         this.checkDir();
         this.countVideos();
+          
+    }
+    
+    public void loadPreferences(){
+        this.PREF_MAX_FILESIZE=PreferencesHelper.PREF_MAX_FILESIZE;
+        this.PREF_STOP_ON_ERROR = PreferencesHelper.PREF_STOP_ON_ERROR;
+        this.PREF_WAIT_TIME = PreferencesHelper.PREF_WAIT_TIME;
     }
 
     public void startNewThread() {
@@ -48,7 +61,7 @@ public class TaskItem implements Runnable {
         this.setStatus(TaskItem.STATUS_RUNNING);
 
         this.thread = new Thread(this);
-        
+
         thread.setDaemon(true);
 
         thread.start();
@@ -133,21 +146,21 @@ public class TaskItem implements Runnable {
         });
 
         for (File file : files) {
-            String name = file.getName().split(".",1)[0];
+            String name = file.getName().split(".", 1)[0];
             if (!(new File(file.getAbsolutePath() + "/" + name + ".mp4").exists())) {
                 file.delete();
             }
         }
 
     }
-    
-    public void deleteAllFiles(){
+
+    public void deleteAllFiles() {
         File[] files = this.directory.listFiles();
 
         for (File file : files) {
-                file.delete();
+            file.delete();
         }
-        
+
         this.directory.delete();
     }
 
@@ -170,14 +183,13 @@ public class TaskItem implements Runnable {
 
             String youtubeURL = "https://www.youtube.com/results?search_sort=video_date_uploaded&filters=hour&search_query=" + this.keyword;
             String downloadDir = this.directory.getAbsolutePath() + "/" + "%(id)s.%(ext)s";
-            String logfile = "already_listed_log.log";
 
-            String[] command = {youtubedl, youtubeURL, "-o", downloadDir, "--max-filesize", "30.1m", "--download-archive", logfile, "--no-playlist", "--max-downloads", "2", "--write-info-json"};
+            String[] command = {youtubedl, youtubeURL, "-o", downloadDir, "--max-filesize", String.valueOf(this.PREF_MAX_FILESIZE) + "m", "--download-archive", TaskItem.PREF_LOGFILE, "--no-playlist", "--max-downloads", "2", "--write-info-json"};
             Runtime runtime = Runtime.getRuntime();
 
             try {
                 Process process = runtime.exec(command);
-                
+
                 InputStream is = process.getInputStream();
                 InputStreamReader isr = new InputStreamReader(is);
                 BufferedReader br = new BufferedReader(isr);
@@ -202,7 +214,7 @@ public class TaskItem implements Runnable {
             this.countVideos();
 
             try {
-                Thread.sleep(TaskItem.WAIT_TIME);
+                Thread.sleep(this.PREF_WAIT_TIME);
             } catch (InterruptedException ex) {
                 Logger.getLogger(TaskItem.class.getName()).log(Level.SEVERE, null, ex);
             }

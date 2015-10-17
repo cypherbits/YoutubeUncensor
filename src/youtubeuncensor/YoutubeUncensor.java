@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import youtubeuncensor.core.PreferencesHelper;
 
 /**
  *
@@ -13,10 +14,13 @@ import javafx.stage.Stage;
  */
 public class YoutubeUncensor extends Application {
 
-    public static final String appversion = "v1.0 Beta 3 (x/09/2015)";
+    public static final String appversion = "v1.0 Beta 3 (x/10/2015)";
 
     @Override
     public void start(Stage stage) throws Exception {
+
+        this.loadPreferences();
+
         Parent root = FXMLLoader.load(getClass().getResource("Main.fxml"));
 
         Scene scene = new Scene(root);
@@ -37,6 +41,26 @@ public class YoutubeUncensor extends Application {
     @Override
     public void stop() {
         Main.properExit();
+    }
+
+    public void loadPreferences() {
+        if (PreferencesHelper.getPreference(PreferencesHelper._PREFNAME_DOWNLOAD_DIR) == null) {
+            PreferencesHelper.setPreference(PreferencesHelper._PREFNAME_DOWNLOAD_DIR, PreferencesHelper.PREF_DOWNLOAD_DIR);
+        }
+        if (PreferencesHelper.getPreference(PreferencesHelper._PREFNAME_DEFAULT_FILESIZE) == null) {
+            PreferencesHelper.setPreference(PreferencesHelper._PREFNAME_DEFAULT_FILESIZE, String.valueOf(PreferencesHelper.PREF_MAX_FILESIZE));
+        }
+        if (PreferencesHelper.getPreference(PreferencesHelper._PREFNAME_DEFAULT_WAITTIME) == null) {
+            PreferencesHelper.setPreference(PreferencesHelper._PREFNAME_DEFAULT_WAITTIME, String.valueOf(PreferencesHelper.PREF_WAIT_TIME));
+        }
+        if (PreferencesHelper.getPreference(PreferencesHelper._PREFNAME_DEFAULT_STOPONERROR) == null) {
+            PreferencesHelper.setPreference(PreferencesHelper._PREFNAME_DEFAULT_STOPONERROR, String.valueOf(PreferencesHelper.PREF_STOP_ON_ERROR));
+        }
+
+        PreferencesHelper.PREF_DOWNLOAD_DIR = PreferencesHelper.getPreference(PreferencesHelper._PREFNAME_DOWNLOAD_DIR);
+        PreferencesHelper.PREF_MAX_FILESIZE = Float.parseFloat(PreferencesHelper.getPreference(PreferencesHelper._PREFNAME_DEFAULT_FILESIZE));
+        PreferencesHelper.PREF_WAIT_TIME = Integer.parseInt(PreferencesHelper.getPreference(PreferencesHelper._PREFNAME_DEFAULT_WAITTIME));
+        PreferencesHelper.PREF_STOP_ON_ERROR = Boolean.parseBoolean(PreferencesHelper.getPreference(PreferencesHelper._PREFNAME_DEFAULT_STOPONERROR));
     }
 
 }
