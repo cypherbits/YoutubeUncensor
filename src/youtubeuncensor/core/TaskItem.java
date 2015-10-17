@@ -47,11 +47,11 @@ public class TaskItem implements Runnable {
         this.loadPreferences();
         this.checkDir();
         this.countVideos();
-          
+
     }
-    
-    public void loadPreferences(){
-        this.PREF_MAX_FILESIZE=PreferencesHelper.PREF_MAX_FILESIZE;
+
+    public void loadPreferences() {
+        this.PREF_MAX_FILESIZE = PreferencesHelper.PREF_MAX_FILESIZE;
         this.PREF_STOP_ON_ERROR = PreferencesHelper.PREF_STOP_ON_ERROR;
         this.PREF_WAIT_TIME = PreferencesHelper.PREF_WAIT_TIME;
     }
@@ -197,6 +197,14 @@ public class TaskItem implements Runnable {
 
                 while ((line = br.readLine()) != null) {
                     this.consoleLog += line + "\n";
+
+                    //youtube-dl stops working well downloading live streaming video
+                    if (this.PREF_STOP_ON_ERROR) {
+                        if (line.contains("ERROR") && line.contains("SSL")) {
+                            process.destroy();
+                        }
+                    }
+
                 }
 
                 //Wait to get exit value
