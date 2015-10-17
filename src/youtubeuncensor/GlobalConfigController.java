@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import youtubeuncensor.core.PreferencesHelper;
@@ -49,7 +50,6 @@ public class GlobalConfigController implements Initializable {
         default_checkStopError.setSelected(Boolean.parseBoolean(PreferencesHelper.getPreference(PreferencesHelper._PREFNAME_DEFAULT_STOPONERROR)));
         default_txtMaxSize.setText(PreferencesHelper.getPreference(PreferencesHelper._PREFNAME_DEFAULT_FILESIZE));
         default_txtTime.setText(PreferencesHelper.getPreference(PreferencesHelper._PREFNAME_DEFAULT_WAITTIME));
-        
 
     }
 
@@ -77,12 +77,27 @@ public class GlobalConfigController implements Initializable {
             String txtMaxSize = this.default_txtMaxSize.getText();
             String txtWaitTime = this.default_txtTime.getText();
             String stopOnError = String.valueOf(this.default_checkStopError.isSelected());
-            
 
             PreferencesHelper.setPreference(PreferencesHelper._PREFNAME_DEFAULT_FILESIZE, txtMaxSize);
             PreferencesHelper.setPreference(PreferencesHelper._PREFNAME_DEFAULT_WAITTIME, txtWaitTime);
             PreferencesHelper.setPreference(PreferencesHelper._PREFNAME_DEFAULT_STOPONERROR, stopOnError);
 
+        }
+    }
+
+    @FXML
+    public void handleTextChanged(KeyEvent event) {
+        Object source = event.getSource();
+        //System.out.println(event.getCharacter());
+        try {
+            if (source == this.default_txtMaxSize) {
+                Float.parseFloat(this.default_txtMaxSize.getText() + event.getCharacter());
+
+            } else if (source == this.default_txtTime) {
+                Integer.parseInt(this.default_txtTime.getText() + event.getCharacter());
+            }
+        } catch (NumberFormatException e) {
+            event.consume();
         }
     }
 }
