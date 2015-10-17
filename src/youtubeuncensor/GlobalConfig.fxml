@@ -47,7 +47,7 @@
                                     <Label text="Time between searches, in seconds" />
                                     <TextField fx:id="default_txtTime" promptText="min: 15" />
                                     <CheckBox fx:id="default_checkStopError" mnemonicParsing="false" text="Stop Tasks on youtube-dl error" />
-                                    <Button fx:id="default_btnApply" mnemonicParsing="false" text="Apply" />
+                                    <Button fx:id="default_btnApply" mnemonicParsing="false" onAction="#handleButtonAction" text="Apply" />
                                  </children>
                               </VBox>
                            </content>

@@ -49,6 +49,7 @@ public class GlobalConfigController implements Initializable {
         default_checkStopError.setSelected(Boolean.parseBoolean(PreferencesHelper.getPreference(PreferencesHelper._PREFNAME_DEFAULT_STOPONERROR)));
         default_txtMaxSize.setText(PreferencesHelper.getPreference(PreferencesHelper._PREFNAME_DEFAULT_FILESIZE));
         default_txtTime.setText(PreferencesHelper.getPreference(PreferencesHelper._PREFNAME_DEFAULT_WAITTIME));
+        
 
     }
 
@@ -76,6 +77,7 @@ public class GlobalConfigController implements Initializable {
             String txtMaxSize = this.default_txtMaxSize.getText();
             String txtWaitTime = this.default_txtTime.getText();
             String stopOnError = String.valueOf(this.default_checkStopError.isSelected());
+            
 
             PreferencesHelper.setPreference(PreferencesHelper._PREFNAME_DEFAULT_FILESIZE, txtMaxSize);
             PreferencesHelper.setPreference(PreferencesHelper._PREFNAME_DEFAULT_WAITTIME, txtWaitTime);

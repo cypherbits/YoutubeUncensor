@@ -54,7 +54,7 @@ public class YoutubeUncensor extends Application {
             PreferencesHelper.setPreference(PreferencesHelper._PREFNAME_DEFAULT_WAITTIME, String.valueOf(PreferencesHelper.PREF_WAIT_TIME));
         }
         if (PreferencesHelper.getPreference(PreferencesHelper._PREFNAME_DEFAULT_STOPONERROR) == null) {
-            PreferencesHelper.setPreference(PreferencesHelper._PREFNAME_DEFAULT_STOPONERROR, String.valueOf(PreferencesHelper._PREFNAME_DEFAULT_STOPONERROR));
+            PreferencesHelper.setPreference(PreferencesHelper._PREFNAME_DEFAULT_STOPONERROR, String.valueOf(PreferencesHelper.PREF_STOP_ON_ERROR));
         }
 
         PreferencesHelper.PREF_DOWNLOAD_DIR = PreferencesHelper.getPreference(PreferencesHelper._PREFNAME_DOWNLOAD_DIR);
