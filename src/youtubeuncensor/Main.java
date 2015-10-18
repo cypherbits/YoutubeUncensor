@@ -52,6 +52,8 @@ public class Main implements Initializable {
     private Button btnPreferences;
     @FXML
     private Button btnAbout;
+    @FXML
+    private Button btnExplorer;
 
     @FXML
     private TableView tableView_tasks;
@@ -167,6 +169,19 @@ public class Main implements Initializable {
                 stage.setTitle("Preferences");
                 stage.setScene(new Scene(root));
                 stage.setResizable(false);
+                stage.show();
+            } catch (IOException ex) {
+                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        } else if (source == this.btnExplorer) {
+
+            try {
+                Parent root;
+                root = FXMLLoader.load(getClass().getResource("Explorer.fxml"));
+                Stage stage = new Stage();
+                stage.setTitle("Explorer");
+                stage.setScene(new Scene(root));
                 stage.show();
             } catch (IOException ex) {
                 Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);

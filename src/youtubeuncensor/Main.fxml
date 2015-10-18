@@ -23,6 +23,8 @@
             <Separator orientation="VERTICAL" />
             <Button fx:id="btnPreferences" mnemonicParsing="false" onAction="#handleButtonAction" text="Preferences" />
           <Button fx:id="btnAbout" mnemonicParsing="false" onAction="#handleButtonAction" text="About" />
+            <Separator orientation="VERTICAL" />
+            <Button fx:id="btnExplorer" mnemonicParsing="false" onAction="#handleButtonAction" text="Explorer" />
         </items>
       </ToolBar>
       <TableView fx:id="tableView_tasks" layoutX="15.0" layoutY="36.0" prefHeight="764.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0" />

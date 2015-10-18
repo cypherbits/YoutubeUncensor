@@ -58,7 +58,7 @@ public class TaskItem implements Runnable {
 
     public void startNewThread() {
 
-        this.setStatus(TaskItem.STATUS_RUNNING);
+        this.status = TaskItem.STATUS_RUNNING;
 
         this.thread = new Thread(this);
 
@@ -69,7 +69,7 @@ public class TaskItem implements Runnable {
 
     public void stopThread() {
         this.thread.stop();
-        this.setStatus(TaskItem.STATUS_STOPPED);
+        this.status = TaskItem.STATUS_STOPPED;
     }
 
     public int getId() {
@@ -96,20 +96,8 @@ public class TaskItem implements Runnable {
         return this.consoleLog;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setKeyword(String keyword) {
-        this.keyword = keyword;
-    }
-
-    public void setNvideos(int nvideos) {
-        this.nvideos = nvideos;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
+    public File getDirectory() {
+        return this.directory;
     }
 
     public synchronized void checkDir() {
