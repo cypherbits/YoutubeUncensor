@@ -184,7 +184,7 @@ public class TaskItem implements Runnable {
             String youtubeURL = "https://www.youtube.com/results?search_sort=video_date_uploaded&filters=hour&search_query=" + this.keyword;
             String downloadDir = this.directory.getAbsolutePath() + "/" + "%(id)s.%(ext)s";
 
-            String[] command = {youtubedl, youtubeURL, "-o", downloadDir, "--max-filesize", String.valueOf(this.PREF_MAX_FILESIZE) + "m", "--download-archive", TaskItem.PREF_LOGFILE, "--no-playlist", "--max-downloads", "2", "--write-info-json"};
+            String[] command = {youtubedl, youtubeURL, "-o", downloadDir, "--max-filesize", String.valueOf(this.PREF_MAX_FILESIZE) + "m", "--download-archive", TaskItem.PREF_LOGFILE, "--no-playlist", "--max-downloads", "2", "--write-info-json", "--write-thumbnail"};
             Runtime runtime = Runtime.getRuntime();
 
             try {
