@@ -14,7 +14,7 @@ import youtubeuncensor.core.PreferencesHelper;
  */
 public class YoutubeUncensor extends Application {
 
-    public static final String appversion = "v1.0 Beta 3 (18/10/2015)";
+    public static final String appversion = "v1.0 Beta 4 (x/10/2015)";
 
     @Override
     public void start(Stage stage) throws Exception {
