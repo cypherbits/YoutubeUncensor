@@ -14,6 +14,6 @@
             <ChoiceBox fx:id="menu_choiceKeyword" prefWidth="150.0" />
          </items>
       </ToolBar>
-      <FlowPane layoutX="8.0" layoutY="39.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0" />
+      <FlowPane fx:id="flowpane" layoutX="8.0" layoutY="39.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0" />
    </children>
 </AnchorPane>

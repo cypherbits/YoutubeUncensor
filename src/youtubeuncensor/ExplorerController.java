@@ -51,14 +51,16 @@ public class ExplorerController implements Initializable {
     }
 
     private void listVideos(String keyword) {
-       
+
+        this.flowpane.getChildren().clear();
+
         if (keyword == null) {
             for (TaskItem item : Main.taskList) {
                 //TODO
             }
-        }else{
+        } else {
             for (TaskItem item : Main.taskList) {
-                if (item.getKeyword().equals(keyword)){
+                if (item.getKeyword().equals(keyword)) {
                     //TODO
                     break;
                 }
