@@ -62,36 +62,42 @@ public class ExplorerController implements Initializable {
         if (keyword == null) {
             for (TaskItem item : Main.taskList) {
 
-                //TODO BETTER
-                File[] files = item.getVideoFiles();
-
-                for (File file : files) {
-
-                    String name = file.getName().replace(".mp4", ".jpg");
-
-                    File imageFile = new File(item.getDirectory().getAbsolutePath() + "/" + name);
-
-                    if (imageFile.exists()) {
-
-                        ImageView image = new ImageView(imageFile.toURI().toString());
-                        image.setFitWidth(200);
-                        image.setFitHeight(200);
-
-                        this.flowpane.getChildren().add(image);
-                    } else {
-                        this.flowpane.getChildren().add(new ImageView(new Image(getClass().getResourceAsStream("youtube_uncensor.png"))));
-                    }
-
-                }
+                addVideo(item);
 
             }
         } else {
             for (TaskItem item : Main.taskList) {
                 if (item.getKeyword().equals(keyword)) {
                     //TODO
+                    addVideo(item);
                     break;
                 }
             }
+        }
+    }
+
+    private void addVideo(TaskItem item) {
+
+        //TODO BETTER
+        File[] files = item.getVideoFiles();
+
+        for (File file : files) {
+
+            String name = file.getName().replace(".mp4", ".jpg");
+
+            File imageFile = new File(item.getDirectory().getAbsolutePath() + "/" + name);
+
+            if (imageFile.exists()) {
+
+                ImageView image = new ImageView(imageFile.toURI().toString());
+                image.setFitWidth(200);
+                image.setFitHeight(200);
+
+                this.flowpane.getChildren().add(image);
+            } else {
+                this.flowpane.getChildren().add(new ImageView(new Image(getClass().getResourceAsStream("youtube_uncensor.png"))));
+            }
+
         }
     }
 
