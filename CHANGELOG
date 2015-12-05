@@ -1,7 +1,7 @@
 v1.0 Beta 4 (6/12/2015):
--Explore, preview and delete videos.
--Bug: #10: json metadata always deleted.
--
+-Explore, preview and delete videos with its metadata and thumbnails.
+-Bug: #19: json metadata always deleted.
+-#13: download thumbnails.
 
 v1.0 Beta 3 (18/10/2015):
 -Feature: Config dialog.
