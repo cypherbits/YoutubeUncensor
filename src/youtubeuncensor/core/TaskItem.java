@@ -108,7 +108,7 @@ public class TaskItem implements Runnable {
 
     public synchronized void countVideos() {
 
-        this.deleteJSONwithNoVideos();
+        this.deleteJSONandThumbnailwithNoVideos();
 
         this.nvideos = this.directory.listFiles(new FilenameFilter() {
 
@@ -137,21 +137,34 @@ public class TaskItem implements Runnable {
         });
     }
 
-    public synchronized void deleteJSONwithNoVideos() {
+    public synchronized void deleteJSONandThumbnailwithNoVideos() {
         //Workaround for bug #8
         //Workaround para youtube-dl en el que descarga el json aunque no descargue el video por los filtros
         File[] files = this.directory.listFiles(new FilenameFilter() {
             @Override
             public boolean accept(File dir, String name) {
-                return name.endsWith(".json");
+                if (name.endsWith(".info.json")) {
+                    return true;
+                } else {
+                    return false;
+                }
             }
         });
 
         for (File file : files) {
-            String name = file.getName().split(".", 1)[0];
-            if (!(new File(file.getAbsolutePath() + "/" + name + ".mp4").exists())) {
+
+            String nvidio = file.getName().split("\\.")[0];
+
+            if (!(new File(this.directory.getAbsolutePath() + "/" + nvidio + ".mp4").exists())) {
                 file.delete();
+
+                //Delete thumbnail too
+                String thumbnail = this.directory.getAbsolutePath() + "/" + nvidio + ".jpg";
+                if (new File(thumbnail).exists()) {
+
+                }
             }
+
         }
 
     }
