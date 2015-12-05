@@ -123,6 +123,20 @@ public class TaskItem implements Runnable {
         }).length;
     }
 
+    public File[] getVideoFiles() {
+        return this.directory.listFiles(new FilenameFilter() {
+
+            @Override
+            public boolean accept(File dir, String name) {
+                if (name.endsWith(".mp4")) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        });
+    }
+
     public synchronized void deleteJSONwithNoVideos() {
         //Workaround for bug #8
         //Workaround para youtube-dl en el que descarga el json aunque no descargue el video por los filtros
