@@ -197,7 +197,7 @@ public class Main implements Initializable {
 
         tableView_tasks.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
-        TableColumn colId = new TableColumn("id");
+        TableColumn colId = new TableColumn("#");
         TableColumn colKeyword = new TableColumn("keywork");
         TableColumn colNvideos = new TableColumn("number of videos");
         TableColumn colStatus = new TableColumn("status");
