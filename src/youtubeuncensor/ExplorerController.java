@@ -48,23 +48,18 @@ public class ExplorerController implements Initializable {
         menu_choiceKeyword.getSelectionModel().selectFirst();
 
         menu_choiceKeyword.valueProperty().addListener((observable, oldValue, newValue) -> {
-
-            if (menu_choiceKeyword.getSelectionModel().getSelectedIndex() == 0) {
-                listVideos(null);
-            } else {
-                listVideos(newValue.toString());
-            }
+                listVideos();
         });
 
-        listVideos(null);
+        listVideos();
 
     }
 
-    private void listVideos(String keyword) {
+    private void listVideos() {
 
         this.flowpane.getChildren().clear();
 
-        if (keyword == null) {
+        if (menu_choiceKeyword.getSelectionModel().getSelectedIndex() == 0) {
             for (TaskItem item : Main.taskList) {
 
                 addVideosFromKeyword(item);
@@ -72,7 +67,7 @@ public class ExplorerController implements Initializable {
             }
         } else {
             for (TaskItem item : Main.taskList) {
-                if (item.getKeyword().equals(keyword)) {
+                if (item.getKeyword().equals(menu_choiceKeyword.getSelectionModel().selectedItemProperty().toString())) {
                    
                     addVideosFromKeyword(item);
                     break;
@@ -101,7 +96,23 @@ public class ExplorerController implements Initializable {
                 MenuItem item1 = new MenuItem("Delete");
                 item1.setOnAction(new EventHandler<ActionEvent>() {
                     public void handle(ActionEvent e) {
-                        System.out.println("About");
+                        //System.out.println(file.getName());
+                        String nvideo = file.getName().replace(".mp4", "");
+                        
+                        File thumbnail = new File(item.getDirectory()+"/"+nvideo+".jpg");
+                        File metadata = new File(item.getDirectory()+"/"+nvideo+".info.json");
+                        
+                        if (thumbnail.exists()){
+                            thumbnail.delete();
+                        }
+                        
+                        if (metadata.exists()){
+                            metadata.delete();
+                        }
+                        
+                        file.delete();
+                        
+                        listVideos();
                     }
                 });
 
