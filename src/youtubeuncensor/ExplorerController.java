@@ -93,10 +93,10 @@ public class ExplorerController implements Initializable {
             if (imageFile.exists()) {
 
                 addVideo(item, file, imageFile);
-                
+
             } else {
-                
-               addVideo(item, file, new File(""));
+
+                addVideo(item, file, null);
 
             }
 
@@ -104,8 +104,15 @@ public class ExplorerController implements Initializable {
     }
 
     private void addVideo(TaskItem item, File file, File imageFile) {
+
+        ImageView pimage = new ImageView(new Image(getClass().getResourceAsStream("youtube_uncensor.png")));
+
+        if (imageFile != null) {
+            pimage = new ImageView(imageFile.toURI().toString());
+        }
         
-        ImageView image = new ImageView(imageFile.toURI().toString());
+        ImageView image = pimage;
+
         image.setFitWidth(200);
         image.setFitHeight(200);
 
