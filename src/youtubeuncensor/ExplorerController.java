@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import youtubeuncensor.core.TaskItem;
@@ -50,11 +51,11 @@ public class ExplorerController implements Initializable {
             }
         });
 
+        listVideos(null);
+
     }
 
     private void listVideos(String keyword) {
-
-        System.out.println("listvideos");
 
         this.flowpane.getChildren().clear();
 
@@ -67,12 +68,20 @@ public class ExplorerController implements Initializable {
                 for (File file : files) {
 
                     String name = file.getName().replace(".mp4", ".jpg");
-                    
-                    System.out.println(item.getDirectory().getAbsolutePath() + "/" + name);
 
-                    ImageView image = new ImageView(new File(item.getDirectory().getAbsolutePath() + "/" + name).toURI().toString());
+                    File imageFile = new File(item.getDirectory().getAbsolutePath() + "/" + name);
 
-                    this.flowpane.getChildren().add(image);
+                    if (imageFile.exists()) {
+
+                        ImageView image = new ImageView(imageFile.toURI().toString());
+                        image.setFitWidth(200);
+                        image.setFitHeight(200);
+
+                        this.flowpane.getChildren().add(image);
+                    } else {
+                        this.flowpane.getChildren().add(new ImageView(new Image(getClass().getResourceAsStream("youtube_uncensor.png"))));
+                    }
+
                 }
 
             }
