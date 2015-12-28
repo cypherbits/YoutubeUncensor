@@ -83,7 +83,7 @@ public class ExplorerController implements Initializable {
             }
         } else {
             for (TaskItem item : Main.taskList) {
-                if (item.getKeyword().equals(menu_choiceKeyword.getSelectionModel().selectedItemProperty().toString())) {
+                if (item.getKeyword().equals(menu_choiceKeyword.getSelectionModel().selectedItemProperty().getValue().toString())) {
                     addVideosFromKeyword(item);
                     break;
                 }
@@ -148,7 +148,6 @@ public class ExplorerController implements Initializable {
 
                 file.delete();
 
-                //listVideos();
                 flowpane.getChildren().remove(image);
 
                 //Recount
