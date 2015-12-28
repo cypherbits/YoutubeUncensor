@@ -1,7 +1,7 @@
 package youtubeuncensor;
 
 import java.io.File;
-import java.net.URISyntaxException;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -11,7 +11,10 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ContextMenu;
@@ -21,6 +24,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
+import javafx.stage.Stage;
 import youtubeuncensor.core.TaskItem;
 
 /**
@@ -130,8 +134,25 @@ public class ExplorerController implements Initializable {
         image.setFitWidth(200);
         image.setFitHeight(200);
 
-        MenuItem item1 = new MenuItem("Delete");
+        MenuItem item1 = new MenuItem("View Metadata");
         item1.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e) {
+                try {
+                    Parent root;
+                    root = FXMLLoader.load(getClass().getResource("Metadata.fxml"));
+                    Stage stage = new Stage();
+                    stage.setTitle("Metadata viewer");
+                    stage.setScene(new Scene(root));
+                    stage.setResizable(false);
+                    stage.show();
+                } catch (IOException ex) {
+                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+
+        MenuItem item2 = new MenuItem("Delete");
+        item2.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
                 String nvideo = file.getName().replace(".mp4", "");
 
@@ -157,6 +178,7 @@ public class ExplorerController implements Initializable {
 
         ContextMenu cm = new ContextMenu();
         cm.getItems().add(item1);
+        cm.getItems().add(item2);
 
         image.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
