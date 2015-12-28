@@ -12,8 +12,10 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -32,6 +34,10 @@ public class ExplorerController implements Initializable {
     private ChoiceBox menu_choiceKeyword;
     @FXML
     private FlowPane flowpane;
+    @FXML
+    private Button btnReload;
+    @FXML
+    private Label labelCount;
 
     private ObservableList<String> keywordList;
 
@@ -58,25 +64,33 @@ public class ExplorerController implements Initializable {
 
     }
 
+    @FXML
+    private void handleButtonAction(ActionEvent event) {
+        Object source = event.getSource();
+
+        if (source == this.btnReload) {
+            listVideos();
+        }
+    }
+
     private void listVideos() {
 
         this.flowpane.getChildren().clear();
 
         if (menu_choiceKeyword.getSelectionModel().getSelectedIndex() == 0) {
             for (TaskItem item : Main.taskList) {
-
                 addVideosFromKeyword(item);
-
             }
         } else {
             for (TaskItem item : Main.taskList) {
                 if (item.getKeyword().equals(menu_choiceKeyword.getSelectionModel().selectedItemProperty().toString())) {
-
                     addVideosFromKeyword(item);
                     break;
                 }
             }
         }
+
+        labelCount.setText(this.flowpane.getChildren().size() + " videos");
     }
 
     private void addVideosFromKeyword(TaskItem item) {
@@ -110,7 +124,7 @@ public class ExplorerController implements Initializable {
         if (imageFile != null) {
             pimage = new ImageView(imageFile.toURI().toString());
         }
-        
+
         ImageView image = pimage;
 
         image.setFitWidth(200);
