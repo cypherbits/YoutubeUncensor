@@ -16,9 +16,14 @@
             <Button fx:id="btnReload" mnemonicParsing="false" onAction="#handleButtonAction" text="Reload" />
          </items>
       </ToolBar>
-      <FlowPane fx:id="flowpane" hgap="6.0" layoutX="8.0" layoutY="39.0" prefHeight="200.0" prefWidth="200.0" vgap="6.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
-         <padding>
-            <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
-         </padding></FlowPane>
+      <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="451.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
+         <content>
+            <FlowPane fx:id="flowpane" hgap="6.0" vgap="6.0">
+               <padding>
+                  <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+               </padding>
+            </FlowPane>
+         </content>
+      </ScrollPane>
    </children>
 </AnchorPane>
