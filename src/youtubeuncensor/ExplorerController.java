@@ -133,7 +133,6 @@ public class ExplorerController implements Initializable {
         MenuItem item1 = new MenuItem("Delete");
         item1.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
-                //System.out.println(file.getName());
                 String nvideo = file.getName().replace(".mp4", "");
 
                 File thumbnail = new File(item.getDirectory() + "/" + nvideo + ".jpg");
@@ -149,7 +148,11 @@ public class ExplorerController implements Initializable {
 
                 file.delete();
 
-                listVideos();
+                //listVideos();
+                flowpane.getChildren().remove(image);
+
+                //Recount
+                labelCount.setText(flowpane.getChildren().size() + " videos");
             }
         });
 
