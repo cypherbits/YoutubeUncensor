@@ -1,3 +1,6 @@
+v1.0 Beta 5 (22/10/2016):
+-Update youtube-dl and fixes.
+
 v1.0 Beta 4 (6/12/2015):
 -Explore, preview and delete videos with its metadata and thumbnails.
 -Bug: #19: json metadata always deleted.
