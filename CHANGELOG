@@ -1,5 +1,7 @@
 v1.0 Beta 4.1 (22/10/2016):
 -Update youtube-dl and fixes.
+-view video metadata.
+-video list/browser async loading.
 
 v1.0 Beta 4 (6/12/2015):
 -Explore, preview and delete videos with its metadata and thumbnails.
