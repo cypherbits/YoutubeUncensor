@@ -160,8 +160,9 @@ public class TaskItem implements Runnable {
 
                 //Delete thumbnail too
                 String thumbnail = this.directory.getAbsolutePath() + "/" + nvidio + ".jpg";
-                if (new File(thumbnail).exists()) {
-
+                File fileThumb = new File(thumbnail);
+                if (fileThumb.exists()) {
+                    fileThumb.delete();
                 }
             }
 
@@ -189,7 +190,7 @@ public class TaskItem implements Runnable {
 
             String youtubedl;
             if (System.getProperty("os.name").startsWith("Windows")) {
-                // includes: Windows 2000,  Windows 95, Windows 98, Windows NT, Windows Vista, Windows XP
+                // Windows
                 youtubedl = "./bin/youtube-dl.exe";
             } else {
                 // everything else
@@ -199,7 +200,7 @@ public class TaskItem implements Runnable {
             String youtubeURL = "https://www.youtube.com/results?search_sort=video_date_uploaded&filters=hour&search_query=" + this.keyword;
             String downloadDir = this.directory.getAbsolutePath() + "/" + "%(id)s.%(ext)s";
 
-            String[] command = {youtubedl, youtubeURL, "-o", downloadDir, "--max-filesize", String.valueOf(this.PREF_MAX_FILESIZE) + "m", "--download-archive", TaskItem.PREF_LOGFILE, "--no-playlist", "--max-downloads", "4", "--write-info-json", "--write-thumbnail"};
+            String[] command = {youtubedl, youtubeURL, "-o", downloadDir, "--max-filesize", String.valueOf(this.PREF_MAX_FILESIZE) + "m", "--download-archive", TaskItem.PREF_LOGFILE, "--no-playlist", "--max-downloads", "4", "--write-info-json", "--write-thumbnail", "--recode-video", "mp4"};
             Runtime runtime = Runtime.getRuntime();
 
             try {
