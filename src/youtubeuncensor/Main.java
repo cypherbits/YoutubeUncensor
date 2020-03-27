@@ -201,9 +201,10 @@ public class Main implements Initializable {
         tableView_tasks.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
         TableColumn colId = new TableColumn("#");
-        TableColumn colKeyword = new TableColumn("keywork");
+        TableColumn colKeyword = new TableColumn("keyword");
         TableColumn colNvideos = new TableColumn("number of videos");
         TableColumn colStatus = new TableColumn("status");
+        TableColumn colLastError = new TableColumn("last error");
 
         colId.setCellValueFactory(
                 new PropertyValueFactory<TaskItem, String>("id")
@@ -217,8 +218,11 @@ public class Main implements Initializable {
         colStatus.setCellValueFactory(
                 new PropertyValueFactory<TaskItem, String>("status")
         );
+        colLastError.setCellValueFactory(
+                new PropertyValueFactory<TaskItem, String>("lasterror")
+        );
 
-        tableView_tasks.getColumns().addAll(colId, colKeyword, colNvideos, colStatus);
+        tableView_tasks.getColumns().addAll(colId, colKeyword, colNvideos, colStatus, colLastError);
 
         tableView_tasks.setItems(taskList);
 

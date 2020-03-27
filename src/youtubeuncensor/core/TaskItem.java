@@ -21,6 +21,7 @@ public class TaskItem implements Runnable {
     private String keyword;
     private int nvideos;
     private String status;
+    private String lasterror;
 
     private Thread thread;
 
@@ -44,6 +45,7 @@ public class TaskItem implements Runnable {
         this.keyword = keyword;
         this.status = TaskItem.STATUS_STOPPED;
         this.consoleLog = "";
+        this.lasterror = "never";
         this.thread = new Thread(this);
         this.directory = new File(PreferencesHelper.PREF_DOWNLOAD_DIR + "/" + keyword);
 
@@ -82,6 +84,10 @@ public class TaskItem implements Runnable {
 
     public String getKeyword() {
         return keyword;
+    }
+
+    public String getLasterror() {
+        return lasterror;
     }
 
     public int getNvideos() {
@@ -230,6 +236,7 @@ public class TaskItem implements Runnable {
                     if (errLine!=null){
                         String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
                         this.consoleLog += timeStamp + ": " + errLine + "\n";
+                        this.lasterror = timeStamp + ": " + errLine;
                     }
 
                     //youtube-dl stops working well downloading live streaming video
