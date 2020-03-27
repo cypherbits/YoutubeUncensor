@@ -14,6 +14,7 @@ public class PreferencesHelper {
     public static final String _PREFNAME_DEFAULT_FILESIZE = "default_filesize";
     public static final String _PREFNAME_DEFAULT_WAITTIME = "default_waitime";
     public static final String _PREFNAME_DEFAULT_STOPONERROR = "default_stoponerror";
+    public static final String _PREFNAME_DEFAULT_LOGDEBUG = "default_logdebug";
 
     //Runtime preferences
     public static String PREF_DOWNLOAD_DIR = "downloads";
@@ -22,6 +23,7 @@ public class PreferencesHelper {
     public static int PREF_WAIT_TIME = 20000;
     public static float PREF_MAX_FILESIZE = 30.1f;
     public static boolean PREF_STOP_ON_ERROR = true;
+    public static boolean PREF_LOG_DEBUG = false;
 
     public static String getPreference(String name) {
         Preferences prefs = Preferences.userNodeForPackage(YoutubeUncensor.class);

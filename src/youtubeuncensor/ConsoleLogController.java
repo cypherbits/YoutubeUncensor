@@ -37,7 +37,7 @@ public class ConsoleLogController implements Initializable {
                    updateLog();
 
                     try {
-                        Thread.sleep(1100);
+                        Thread.sleep(1500);
                     } catch (InterruptedException ex) {
                         Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
                     }

@@ -56,11 +56,15 @@ public class YoutubeUncensor extends Application {
         if (PreferencesHelper.getPreference(PreferencesHelper._PREFNAME_DEFAULT_STOPONERROR) == null) {
             PreferencesHelper.setPreference(PreferencesHelper._PREFNAME_DEFAULT_STOPONERROR, String.valueOf(PreferencesHelper.PREF_STOP_ON_ERROR));
         }
+        if (PreferencesHelper.getPreference(PreferencesHelper._PREFNAME_DEFAULT_LOGDEBUG) == null) {
+            PreferencesHelper.setPreference(PreferencesHelper._PREFNAME_DEFAULT_LOGDEBUG, String.valueOf(PreferencesHelper.PREF_LOG_DEBUG));
+        }
 
         PreferencesHelper.PREF_DOWNLOAD_DIR = PreferencesHelper.getPreference(PreferencesHelper._PREFNAME_DOWNLOAD_DIR);
         PreferencesHelper.PREF_MAX_FILESIZE = Float.parseFloat(PreferencesHelper.getPreference(PreferencesHelper._PREFNAME_DEFAULT_FILESIZE));
         PreferencesHelper.PREF_WAIT_TIME = Integer.parseInt(PreferencesHelper.getPreference(PreferencesHelper._PREFNAME_DEFAULT_WAITTIME));
         PreferencesHelper.PREF_STOP_ON_ERROR = Boolean.parseBoolean(PreferencesHelper.getPreference(PreferencesHelper._PREFNAME_DEFAULT_STOPONERROR));
+        PreferencesHelper.PREF_LOG_DEBUG = Boolean.parseBoolean(PreferencesHelper.getPreference(PreferencesHelper._PREFNAME_DEFAULT_LOGDEBUG));
     }
 
 }

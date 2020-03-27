@@ -6,6 +6,8 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -33,6 +35,7 @@ public class TaskItem implements Runnable {
     public int PREF_WAIT_TIME;
     public float PREF_MAX_FILESIZE;
     public boolean PREF_STOP_ON_ERROR;
+    public boolean PREF_LOG_DEBUG;
 
     private File directory;
 
@@ -54,6 +57,7 @@ public class TaskItem implements Runnable {
         this.PREF_MAX_FILESIZE = PreferencesHelper.PREF_MAX_FILESIZE;
         this.PREF_STOP_ON_ERROR = PreferencesHelper.PREF_STOP_ON_ERROR;
         this.PREF_WAIT_TIME = PreferencesHelper.PREF_WAIT_TIME;
+        this.PREF_LOG_DEBUG = PreferencesHelper.PREF_LOG_DEBUG;
     }
 
     public void startNewThread() {
@@ -138,6 +142,7 @@ public class TaskItem implements Runnable {
     }
 
     public synchronized void deleteJSONandThumbnailwithNoVideos() {
+
         //Workaround for bug #8
         //Workaround para youtube-dl en el que descarga el json aunque no descargue el video por los filtros
         File[] files = this.directory.listFiles(new FilenameFilter() {
@@ -183,6 +188,14 @@ public class TaskItem implements Runnable {
     @Override
     public void run() {
 
+        /*
+        * 20200327 youtube-dl command to download videos
+        * OLD: youtube-dl https://www.youtube.com/results?search_sort=video_date_uploaded&filters=hour&search_query=football -o ./downloads/football --max-filesize 50m --download-archive already_listed_log.log --no-playlist --max-downloads 4 --write-info-json --write-thumbnail --recode-video mp4
+        *
+        * NEW: ./youtube-dl "https://www.youtube.com/results?search_sort=video_date_uploaded&filters=hour&search_query=football" -o ./downloads/football --max-filesize 50m --download-archive already_listed_log.log --no-playlist --max-downloads 4 --write-info-json --write-thumbnail --recode-video mp4 --user-agent "Mozilla/5.0 (Windows NT 10.0; rv:68.0) Gecko/20100101 Firefox/68.0" --geo-bypass --referer "https://www.youtube.com/"
+        *
+        * */
+
         while (true) {
 
             //Reset console log
@@ -193,23 +206,36 @@ public class TaskItem implements Runnable {
             String youtubeURL = "https://www.youtube.com/results?search_sort=video_date_uploaded&filters=hour&search_query=" + this.keyword;
             String downloadDir = this.directory.getAbsolutePath() + "/" + "%(id)s.%(ext)s";
 
-            String[] command = {youtubedl, youtubeURL, "-o", downloadDir, "--max-filesize", String.valueOf(this.PREF_MAX_FILESIZE) + "m", "--download-archive", TaskItem.PREF_LOGFILE, "--no-playlist", "--max-downloads", "4", "--write-info-json", "--write-thumbnail", "--recode-video", "mp4"};
+            String[] command = {youtubedl, youtubeURL, "-o", downloadDir, "--max-filesize", String.valueOf(this.PREF_MAX_FILESIZE) + "m", "--download-archive", TaskItem.PREF_LOGFILE, "--no-playlist", "--max-downloads", "4", "--write-info-json", "--write-thumbnail", "--user-agent", "\"Mozilla/5.0 (Windows NT 10.0; rv:68.0) Gecko/20100101 Firefox/68.0\"", "--geo-bypass", "--youtube-skip-dash-manifest","--no-cache-dir","--referer","\"https://www.youtube.com/\"", "--format","best[ext=mp4]", "--no-progress", "--no-continue", "--no-part", "--skip-unavailable-fragments", "--fragment-retries", "2"};
             Runtime runtime = Runtime.getRuntime();
 
             try {
                 Process process = runtime.exec(command);
 
                 InputStream is = process.getInputStream();
+                InputStream eis = process.getErrorStream();
                 InputStreamReader isr = new InputStreamReader(is);
+                InputStreamReader eisr = new InputStreamReader(eis);
                 BufferedReader br = new BufferedReader(isr);
-                String line;
-
-                while ((line = br.readLine()) != null) {
-                    this.consoleLog += line + "\n";
+                BufferedReader ebr = new BufferedReader(eisr);
+                String line=null;
+                String errLine=null;
+                while ((line = br.readLine()) != null || (errLine = ebr.readLine()) != null) {
+                    if (this.consoleLog.lines().count() > 1000){
+                        //this.consoleLog.lines().findFirst().
+                    }
+                    if (line != null && this.PREF_LOG_DEBUG){
+                        this.consoleLog += line + "\n";
+                    }
+                    if (errLine!=null){
+                        String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
+                        this.consoleLog += timeStamp + ": " + errLine + "\n";
+                    }
 
                     //youtube-dl stops working well downloading live streaming video
                     if (this.PREF_STOP_ON_ERROR) {
-                        if (line.contains("ERROR") && line.contains("SSL")) {
+                        if ((line != null && line.contains("ERROR") && line.contains("SSL")) ||
+                        errLine != null && errLine.contains("ERROR") && errLine.contains("SSL")) {
                             process.destroy();
                         }
                     }
