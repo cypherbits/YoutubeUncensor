@@ -153,13 +153,13 @@ public class TaskItem implements Runnable {
 
         for (File file : files) {
 
-            String nvidio = file.getName().split("\\.")[0];
+            String nvideo = file.getName().split("\\.")[0];
 
-            if (!(new File(this.directory.getAbsolutePath() + "/" + nvidio + ".mp4").exists())) {
+            if (!(new File(this.directory.getAbsolutePath() + "/" + nvideo + ".mp4").exists())) {
                 file.delete();
 
                 //Delete thumbnail too
-                String thumbnail = this.directory.getAbsolutePath() + "/" + nvidio + ".jpg";
+                String thumbnail = this.directory.getAbsolutePath() + "/" + nvideo + ".jpg";
                 File fileThumb = new File(thumbnail);
                 if (fileThumb.exists()) {
                     fileThumb.delete();
@@ -188,14 +188,7 @@ public class TaskItem implements Runnable {
             //Reset console log
             this.consoleLog = "";
 
-            String youtubedl;
-            if (System.getProperty("os.name").startsWith("Windows")) {
-                // Windows
-                youtubedl = "./bin/youtube-dl.exe";
-            } else {
-                // everything else
-                youtubedl = "./bin/youtube-dl";
-            }
+            String youtubedl = Utils.getYoutubedlPath();
 
             String youtubeURL = "https://www.youtube.com/results?search_sort=video_date_uploaded&filters=hour&search_query=" + this.keyword;
             String downloadDir = this.directory.getAbsolutePath() + "/" + "%(id)s.%(ext)s";

@@ -1,5 +1,7 @@
 package youtubeuncensor;
 
+import com.sun.webkit.network.Util;
+import youtubeuncensor.core.Constants;
 import youtubeuncensor.core.TaskItem;
 import java.io.File;
 import java.io.IOException;
@@ -27,6 +29,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import youtubeuncensor.core.PreferencesHelper;
+import youtubeuncensor.core.Utils;
 
 /**
  *
@@ -283,9 +286,9 @@ public class Main implements Initializable {
     }
 
     public void checkFiles() {
-        File youtubedl = new File("./bin/youtube-dl");
-        File youtubedlwin = new File("./bin/youtube-dl.exe");
-        if (youtubedl.exists() && youtubedlwin.exists()) {
+        File youtubedl = new File(Utils.getYoutubedlPath());
+
+        if (youtubedl.exists()) {
             if (!youtubedl.canExecute()) {
                 youtubedl.setExecutable(true);
             }
@@ -298,7 +301,7 @@ public class Main implements Initializable {
 
             alert.showAndWait();
 
-            System.err.println("ERROR: some youtube-dl executables doesn't exists or doesn'ts have execution privileges.");
+            System.err.println("ERROR: some youtube-dl executables doesn't exists or doesn't have execution privileges. (In "+ Constants.rutaBin +" folder)");
             System.exit(-1);
         }
     }
