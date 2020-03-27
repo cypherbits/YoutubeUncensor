@@ -52,7 +52,6 @@ public class TaskItem implements Runnable {
         this.loadPreferences();
         this.checkDir();
         this.countVideos();
-
     }
 
     public void loadPreferences() {
@@ -63,13 +62,14 @@ public class TaskItem implements Runnable {
     }
 
     public void startNewThread() {
-
         this.status = TaskItem.STATUS_RUNNING;
-
         this.thread = new Thread(this);
-
         thread.setDaemon(true);
-
+        if (this.keyword.length() > 5){
+            thread.setName(this.keyword.substring(0,5) + "... thread");
+        }else{
+            thread.setName(this.keyword + "... thread");
+        }
         thread.start();
     }
 
@@ -246,7 +246,6 @@ public class TaskItem implements Runnable {
                             process.destroy();
                         }
                     }
-
                 }
 
                 //Wait to get exit value
