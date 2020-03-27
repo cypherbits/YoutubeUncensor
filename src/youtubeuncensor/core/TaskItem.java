@@ -212,7 +212,7 @@ public class TaskItem implements Runnable {
             String youtubeURL = "https://www.youtube.com/results?search_sort=video_date_uploaded&filters=hour&search_query=" + this.keyword;
             String downloadDir = this.directory.getAbsolutePath() + "/" + "%(id)s.%(ext)s";
 
-            String[] command = {youtubedl, youtubeURL, "-o", downloadDir, "--max-filesize", String.valueOf(this.PREF_MAX_FILESIZE) + "m", "--download-archive", TaskItem.PREF_LOGFILE, "--no-playlist", "--max-downloads", "4", "--write-info-json", "--write-thumbnail", "--user-agent", "\"Mozilla/5.0 (Windows NT 10.0; rv:68.0) Gecko/20100101 Firefox/68.0\"", "--geo-bypass", "--youtube-skip-dash-manifest","--no-cache-dir","--referer","\"https://www.youtube.com/\"", "--format","best[ext=mp4]", "--no-progress", "--no-continue", "--no-part", "--skip-unavailable-fragments", "--fragment-retries", "2"};
+            String[] command = {youtubedl, youtubeURL, "-o", downloadDir, "--max-filesize", String.valueOf(this.PREF_MAX_FILESIZE) + "m", "--download-archive", TaskItem.PREF_LOGFILE, "--no-playlist", "--max-downloads", "4", "--write-info-json", "--write-thumbnail", "--user-agent", "\"Mozilla/5.0 (Windows NT 10.0; rv:68.0) Gecko/20100101 Firefox/68.0\"", "--geo-bypass", "--youtube-skip-dash-manifest","--no-cache-dir","--referer","\"https://www.youtube.com/\"", "--format","best[ext=mp4]", "--no-progress", "--no-continue", "--no-part", "--abort-on-unavailable-fragment", "--fragment-retries", "1", "--hls-prefer-native"};
             Runtime runtime = Runtime.getRuntime();
 
             try {
