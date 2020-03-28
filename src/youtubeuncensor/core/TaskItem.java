@@ -227,9 +227,7 @@ public class TaskItem implements Runnable {
                 String line=null;
                 String errLine=null;
                 while ((line = br.readLine()) != null || (errLine = ebr.readLine()) != null) {
-                    if (this.consoleLog.lines().count() > 1000){
-                        //this.consoleLog.lines().findFirst().
-                    }
+
                     if (line != null && this.PREF_LOG_DEBUG){
                         this.consoleLog += line + "\n";
                     }
