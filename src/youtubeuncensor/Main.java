@@ -305,7 +305,7 @@ public class Main implements Initializable {
 
             alert.showAndWait();
 
-            System.err.println("ERROR: some youtube-dl executables doesn't exists or doesn't have execution privileges. (In "+ Constants.rutaBin +" folder)");
+            System.err.println("ERROR: some youtube-dl executables do not exist or do not have execution privileges. (In "+ Constants.rutaBin +" folder)");
             System.exit(-1);
         }
     }
