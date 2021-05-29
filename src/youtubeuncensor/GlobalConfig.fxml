@@ -1,63 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
-<?import javafx.geometry.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
-<AnchorPane id="AnchorPane" fx:id="root" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="youtubeuncensor.GlobalConfigController">
-   <children>
-      <TabPane prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <tabs>
-          <Tab text="Global config">
-               <content>
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                     <children>
-                        <Button fx:id="global_btnApply" layoutX="523.0" layoutY="322.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Apply" AnchorPane.bottomAnchor="19.0" AnchorPane.rightAnchor="15.0" />
-                        <Label layoutX="26.0" layoutY="22.0" text="Download folder">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="global_txtDownloadPath" editable="false" layoutX="26.0" layoutY="48.0" prefHeight="26.0" prefWidth="448.0" AnchorPane.leftAnchor="26.0" AnchorPane.rightAnchor="126.0" AnchorPane.topAnchor="48.0" />
-                        <Button fx:id="global_btnChange" layoutX="481.0" layoutY="48.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Select" AnchorPane.rightAnchor="57.0" AnchorPane.topAnchor="48.0" />
-                        <Label layoutY="84.0" prefHeight="32.0" prefWidth="600.0" text="Restart the app for the changes to take effect. If you change the download folder the older one will not be affected, nothing is deleted." wrapText="true" AnchorPane.leftAnchor="26.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="84.0" />
-                     </children>
-                  </AnchorPane>
-               </content></Tab>
-          <Tab text="Default config">
-               <content>
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                     <children>
-                        <TitledPane animated="false" collapsible="false" prefHeight="200.0" prefWidth="200.0" text="Default config for new tasks" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <content>
-                              <VBox prefHeight="313.0" prefWidth="598.0" spacing="10.0">
-                                 <padding>
-                                    <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
-                                 </padding>
-                                 <opaqueInsets>
-                                    <Insets />
-                                 </opaqueInsets>
-                                 <children>
-                                    <Label text="Max. file sizes (in MiB)" />
-                                    <TextField fx:id="default_txtMaxSize" onKeyTyped="#handleTextChanged" prefHeight="26.0" prefWidth="309.0" promptText="30.1" />
-                                    <Label text="Time between searches, in milliseconds" />
-                                    <TextField fx:id="default_txtTime" onKeyTyped="#handleTextChanged" promptText="min: 15" />
-                                    <CheckBox fx:id="default_checkStopError" mnemonicParsing="false" text="Stop Tasks on youtube-dl error" />
-                                    <CheckBox fx:id="default_checkLogDebug" mnemonicParsing="false" text="Show process logs (not only errors) on Task Log" />
-                                    <Button fx:id="default_btnApply" mnemonicParsing="false" onAction="#handleButtonAction" text="Apply" />
-                                 </children>
-                              </VBox>
-                           </content>
-                        </TitledPane>
-                     </children>
-                  </AnchorPane>
-               </content>
-            </Tab>
-        </tabs>
-      </TabPane>
-   </children>
+<?import javafx.scene.text.Font?>
+<AnchorPane id="AnchorPane" fx:id="root" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="youtubeuncensor.GlobalConfigController">
+   <TabPane prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0"
+            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Tab text="Global config">
+         <AnchorPane prefHeight="200.0" prefWidth="200.0">
+            <Button fx:id="global_btnApply" layoutX="523.0" layoutY="322.0" mnemonicParsing="false"
+                    onAction="#handleButtonAction" text="Apply" AnchorPane.bottomAnchor="19.0"
+                    AnchorPane.rightAnchor="15.0"/>
+            <Label layoutX="26.0" layoutY="22.0" text="Download folder">
+               <font>
+                  <Font size="14.0"/>
+               </font>
+            </Label>
+            <TextField fx:id="global_txtDownloadPath" editable="false" layoutX="26.0" layoutY="48.0"
+                       prefHeight="26.0" prefWidth="448.0" AnchorPane.leftAnchor="26.0"
+                       AnchorPane.rightAnchor="126.0" AnchorPane.topAnchor="48.0"/>
+            <Button fx:id="global_btnChange" layoutX="481.0" layoutY="48.0" mnemonicParsing="false"
+                    onAction="#handleButtonAction" text="Select" AnchorPane.rightAnchor="57.0"
+                    AnchorPane.topAnchor="48.0"/>
+            <Label layoutY="84.0" prefHeight="32.0" prefWidth="600.0"
+                   text="Restart the app for the changes to take effect. If you change the download folder the older one will not be affected, nothing is deleted."
+                   wrapText="true" AnchorPane.leftAnchor="26.0" AnchorPane.rightAnchor="0.0"
+                   AnchorPane.topAnchor="84.0"/>
+         </AnchorPane>
+      </Tab>
+      <Tab text="Default config">
+         <AnchorPane prefHeight="200.0" prefWidth="200.0">
+            <TitledPane animated="false" collapsible="false" prefHeight="200.0" prefWidth="200.0"
+                        text="Default config for new tasks" AnchorPane.bottomAnchor="0.0"
+                        AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <VBox prefHeight="313.0" prefWidth="598.0" spacing="10.0">
+                  <padding>
+                     <Insets bottom="10.0" left="20.0" right="10.0" top="10.0"/>
+                  </padding>
+                  <opaqueInsets>
+                     <Insets/>
+                  </opaqueInsets>
+                  <Label text="Max. file sizes (in MiB)"/>
+                  <TextField fx:id="default_txtMaxSize" onKeyTyped="#handleTextChanged" prefHeight="26.0"
+                             prefWidth="309.0" promptText="30.1"/>
+                  <Label text="Time between searches, in milliseconds"/>
+                  <TextField fx:id="default_txtTime" onKeyTyped="#handleTextChanged"
+                             promptText="min: 15"/>
+                  <CheckBox fx:id="default_checkStopError" mnemonicParsing="false"
+                            text="Stop Tasks on youtube-dl error"/>
+                  <CheckBox fx:id="default_checkLogDebug" mnemonicParsing="false"
+                            text="Show process logs (not only errors) on Task Log"/>
+                  <Button fx:id="default_btnApply" mnemonicParsing="false" onAction="#handleButtonAction"
+                          text="Apply"/>
+               </VBox>
+            </TitledPane>
+         </AnchorPane>
+      </Tab>
+   </TabPane>
 </AnchorPane>

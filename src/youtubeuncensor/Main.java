@@ -1,6 +1,5 @@
 package youtubeuncensor;
 
-import com.sun.webkit.network.Util;
 import youtubeuncensor.core.Constants;
 import youtubeuncensor.core.TaskItem;
 import java.io.File;
@@ -85,9 +84,9 @@ public class Main implements Initializable {
 
             startUpdateListThread();
 
-            for (int i = 0; i < taskList.size(); i++) {
-                if (!taskList.get(i).getThread().isAlive()) {
-                    taskList.get(i).startNewThread();
+            for (TaskItem taskItem : taskList) {
+                if (!taskItem.getThread().isAlive()) {
+                    taskItem.startNewThread();
                 }
             }
 
@@ -131,14 +130,13 @@ public class Main implements Initializable {
                 alert.setContentText("Are you ok with this?");
 
                 Optional<ButtonType> result = alert.showAndWait();
-                if (result.get() == ButtonType.OK) {
+                if (result.isPresent() && result.get() == ButtonType.OK) {
 
                     ti.deleteAllFiles();
 
                     taskList.remove(ti);
-                } else {
-                    //cancel
-                }
+                }  //cancel
+
 
             }
 
@@ -155,9 +153,7 @@ public class Main implements Initializable {
                     //stage.setResizable(false);
                     stage.show();
 
-                    stage.setOnCloseRequest(e -> {
-                        ConsoleLogController.th.stop();
-                    });
+                    stage.setOnCloseRequest(e -> ConsoleLogController.th.stop());
                 } catch (IOException ex) {
                     Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -226,28 +222,25 @@ public class Main implements Initializable {
 
         tableView_tasks.setItems(taskList);
 
-        tableView_tasks.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
-            @Override
-            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+        tableView_tasks.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 
-                if (newValue != null) {
-                    TaskItem tr = (TaskItem) newValue;
+            if (newValue != null) {
+                TaskItem tr = (TaskItem) newValue;
 
-                    //btns
-                    btnStart.setDisable(tr.getThread().isAlive());
-                    btnStop.setDisable(!tr.getThread().isAlive());
-                    btnRemoveTask.setDisable(tr.getThread().isAlive());
-                    btnShowLog.setDisable(false);
+                //btns
+                btnStart.setDisable(tr.getThread().isAlive());
+                btnStop.setDisable(!tr.getThread().isAlive());
+                btnRemoveTask.setDisable(tr.getThread().isAlive());
+                btnShowLog.setDisable(false);
 
-                } else {
-                    //btns
-                    btnStart.setDisable(true);
-                    btnStop.setDisable(true);
-                    btnRemoveTask.setDisable(true);
-                    btnShowLog.setDisable(true);
-                }
-
+            } else {
+                //btns
+                btnStart.setDisable(true);
+                btnStop.setDisable(true);
+                btnRemoveTask.setDisable(true);
+                btnShowLog.setDisable(true);
             }
+
         });
 
         checkFiles();
@@ -275,9 +268,9 @@ public class Main implements Initializable {
         File[] keywordListDirs = downloadDir.listFiles();
 
         int j = 0;
-        for (int i = 0; i < keywordListDirs.length; i++) {
-            if (keywordListDirs[i].isDirectory()) {
-                String keyword = keywordListDirs[i].getName();
+        for (File keywordListDir : keywordListDirs) {
+            if (keywordListDir.isDirectory()) {
+                String keyword = keywordListDir.getName();
 
                 TaskItem tk = new TaskItem(j, keyword);
 
@@ -312,21 +305,19 @@ public class Main implements Initializable {
 
     public void startUpdateListThread() {
         if (updateThread == null || !updateThread.isAlive()) {
-            updateThread = new Thread() {
-                public void run() {
-                    while (true) {
-                        updateList();
+            updateThread = new Thread(() -> {
+                while (true) {
+                    updateList();
 
-                        try {
-                            Thread.sleep(1500);
-                        } catch (InterruptedException ex) {
-                            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-
+                    try {
+                        Thread.sleep(1500);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
                     }
 
                 }
-            };
+
+            });
 
             updateThread.setDaemon(true);
             updateThread.start();
@@ -352,9 +343,9 @@ public class Main implements Initializable {
 
     //Stop all Tasks (no updater thread)
     private static void stopAllTasks() {
-        for (int i = 0; i < taskList.size(); i++) {
-            if (taskList.get(i).getThread().isAlive()) {
-                taskList.get(i).stopThread();
+        for (TaskItem taskItem : taskList) {
+            if (taskItem.getThread().isAlive()) {
+                taskItem.stopThread();
             }
         }
     }

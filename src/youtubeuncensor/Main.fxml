@@ -1,32 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
-<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="youtubeuncensor.Main">
-   <children>
-      <ToolBar layoutX="134.0" prefHeight="34.0" prefWidth="900.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <items>
-            <Button fx:id="btnStartAll" mnemonicParsing="false" onAction="#handleButtonAction" text="Start all" />
-            <Button fx:id="btnStopAll" disable="true" mnemonicParsing="false" onAction="#handleButtonAction" text="Stop all" />
-            <Separator orientation="VERTICAL" />
-            <Button fx:id="btnStart" disable="true" mnemonicParsing="false" onAction="#handleButtonAction" text="Start" />
-            <Button fx:id="btnStop" disable="true" mnemonicParsing="false" onAction="#handleButtonAction" text="Stop" />
-            <Separator orientation="VERTICAL" />
-            <Button fx:id="btnAddTask" mnemonicParsing="false" onAction="#handleButtonAction" text="Add task" />
-            <Button fx:id="btnRemoveTask" disable="true" mnemonicParsing="false" onAction="#handleButtonAction" text="Remove task" />
-            <Separator orientation="VERTICAL" />
-            <Button fx:id="btnShowLog" disable="true" mnemonicParsing="false" onAction="#handleButtonAction" text="Show task log" />
-            <Separator orientation="VERTICAL" />
-            <Button fx:id="btnPreferences" mnemonicParsing="false" onAction="#handleButtonAction" text="Preferences" />
-          <Button fx:id="btnAbout" mnemonicParsing="false" onAction="#handleButtonAction" text="About" />
-            <Separator orientation="VERTICAL" />
-            <Button fx:id="btnExplorer" mnemonicParsing="false" onAction="#handleButtonAction" text="Explorer" />
-        </items>
-      </ToolBar>
-      <TableView fx:id="tableView_tasks" layoutX="15.0" layoutY="36.0" prefHeight="764.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0" />
-   </children>
+<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.40"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="youtubeuncensor.Main">
+    <ToolBar layoutX="134.0" prefHeight="34.0" prefWidth="900.0" AnchorPane.leftAnchor="0.0"
+             AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <Button fx:id="btnStartAll" mnemonicParsing="false" onAction="#handleButtonAction" text="Start all"/>
+        <Button fx:id="btnStopAll" disable="true" mnemonicParsing="false" onAction="#handleButtonAction"
+                text="Stop all"/>
+        <Separator orientation="VERTICAL"/>
+        <Button fx:id="btnStart" disable="true" mnemonicParsing="false" onAction="#handleButtonAction" text="Start"/>
+        <Button fx:id="btnStop" disable="true" mnemonicParsing="false" onAction="#handleButtonAction" text="Stop"/>
+        <Separator orientation="VERTICAL"/>
+        <Button fx:id="btnAddTask" mnemonicParsing="false" onAction="#handleButtonAction" text="Add task"/>
+        <Button fx:id="btnRemoveTask" disable="true" mnemonicParsing="false" onAction="#handleButtonAction"
+                text="Remove task"/>
+        <Separator orientation="VERTICAL"/>
+        <Button fx:id="btnShowLog" disable="true" mnemonicParsing="false" onAction="#handleButtonAction"
+                text="Show task log"/>
+        <Separator orientation="VERTICAL"/>
+        <Button fx:id="btnPreferences" mnemonicParsing="false" onAction="#handleButtonAction" text="Preferences"/>
+        <Button fx:id="btnAbout" mnemonicParsing="false" onAction="#handleButtonAction" text="About"/>
+        <Separator orientation="VERTICAL"/>
+        <Button fx:id="btnExplorer" mnemonicParsing="false" onAction="#handleButtonAction" text="Explorer"/>
+    </ToolBar>
+    <TableView fx:id="tableView_tasks" layoutX="15.0" layoutY="36.0" prefHeight="764.0" prefWidth="900.0"
+               AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+               AnchorPane.topAnchor="40.0"/>
 </AnchorPane>

@@ -29,23 +29,20 @@ public class ConsoleLogController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        ConsoleLogController.th = new Thread() {
-            @Override
-            public void run() {
-                while (true) {
+        ConsoleLogController.th = new Thread(() -> {
+            while (true) {
 
-                   updateLog();
+               updateLog();
 
-                    try {
-                        Thread.sleep(1500);
-                    } catch (InterruptedException ex) {
-                        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-
+                try {
+                    Thread.sleep(1500);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
             }
-        };
+
+        });
 
         ConsoleLogController.th.start();
     }

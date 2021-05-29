@@ -60,9 +60,7 @@ public class ExplorerController implements Initializable {
 
         menu_choiceKeyword.getSelectionModel().selectFirst();
 
-        menu_choiceKeyword.valueProperty().addListener((observable, oldValue, newValue) -> {
-            listVideos();
-        });
+        menu_choiceKeyword.valueProperty().addListener((observable, oldValue, newValue) -> listVideos());
 
         listVideos();
 
@@ -152,40 +150,35 @@ public class ExplorerController implements Initializable {
         });
 
         MenuItem item2 = new MenuItem("Delete");
-        item2.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent e) {
-                String nvideo = file.getName().replace(".mp4", "");
+        item2.setOnAction(e -> {
+            String nvideo = file.getName().replace(".mp4", "");
 
-                File thumbnail = new File(item.getDirectory() + "/" + nvideo + ".jpg");
-                File metadata = new File(item.getDirectory() + "/" + nvideo + ".info.json");
+            File thumbnail = new File(item.getDirectory() + "/" + nvideo + ".jpg");
+            File metadata = new File(item.getDirectory() + "/" + nvideo + ".info.json");
 
-                if (thumbnail.exists()) {
-                    thumbnail.delete();
-                }
-
-                if (metadata.exists()) {
-                    metadata.delete();
-                }
-
-                file.delete();
-
-                flowpane.getChildren().remove(image);
-
-                //Recount
-                labelCount.setText(flowpane.getChildren().size() + " videos");
+            if (thumbnail.exists()) {
+                thumbnail.delete();
             }
+
+            if (metadata.exists()) {
+                metadata.delete();
+            }
+
+            file.delete();
+
+            flowpane.getChildren().remove(image);
+
+            //Recount
+            labelCount.setText(flowpane.getChildren().size() + " videos");
         });
 
         ContextMenu cm = new ContextMenu();
         cm.getItems().add(item1);
         cm.getItems().add(item2);
 
-        image.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                if (event.isSecondaryButtonDown()) {
-                    cm.show(image, event.getScreenX(), event.getScreenY());
-                }
+        image.setOnMousePressed(event -> {
+            if (event.isSecondaryButtonDown()) {
+                cm.show(image, event.getScreenX(), event.getScreenY());
             }
         });
 

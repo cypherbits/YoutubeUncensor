@@ -68,7 +68,7 @@ public class GlobalConfigController implements Initializable {
 
             directoryChooser.setTitle("Choose an EMPTY folder");
 
-            File selectedDirectory = directoryChooser.showDialog((Stage) root.getScene().getWindow());
+            File selectedDirectory = directoryChooser.showDialog(root.getScene().getWindow());
 
             if (selectedDirectory != null && selectedDirectory.exists()) {
                 //TODO: loop while directory is not empty.

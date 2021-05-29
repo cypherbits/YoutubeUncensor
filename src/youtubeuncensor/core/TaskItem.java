@@ -7,10 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -123,47 +120,18 @@ public class TaskItem implements Runnable {
 
         this.deleteJSONandThumbnailwithNoVideos();
 
-        this.nvideos = this.directory.listFiles(new FilenameFilter() {
-
-            @Override
-            public boolean accept(File dir, String name) {
-                if (name.endsWith(".mp4")) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-        }).length;
+        this.nvideos = this.directory.listFiles((dir, name) -> name.endsWith(".mp4")).length;
     }
 
     public File[] getVideoFiles() {
-        return this.directory.listFiles(new FilenameFilter() {
-
-            @Override
-            public boolean accept(File dir, String name) {
-                if (name.endsWith(".mp4")) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-        });
+        return this.directory.listFiles((dir, name) -> name.endsWith(".mp4"));
     }
 
     public synchronized void deleteJSONandThumbnailwithNoVideos() {
 
         //Workaround for bug #8
         //Workaround para youtube-dl en el que descarga el json aunque no descargue el video por los filtros
-        File[] files = this.directory.listFiles(new FilenameFilter() {
-            @Override
-            public boolean accept(File dir, String name) {
-                if (name.endsWith(".info.json")) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-        });
+        File[] files = this.directory.listFiles((dir, name) -> name.endsWith(".info.json"));
 
         for (File file : files) {
 
