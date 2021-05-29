@@ -7,7 +7,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -195,11 +198,8 @@ public class TaskItem implements Runnable {
     public void run() {
 
         /*
-        * 20200327 youtube-dl command to download videos
-        * OLD: youtube-dl https://www.youtube.com/results?search_sort=video_date_uploaded&filters=hour&search_query=football -o ./downloads/football --max-filesize 50m --download-archive already_listed_log.log --no-playlist --max-downloads 4 --write-info-json --write-thumbnail --recode-video mp4
-        *
         * NEW: ./youtube-dl "https://www.youtube.com/results?search_sort=video_date_uploaded&filters=hour&search_query=football" -o ./downloads/football --max-filesize 50m --download-archive already_listed_log.log --no-playlist --max-downloads 4 --write-info-json --write-thumbnail --recode-video mp4 --user-agent "Mozilla/5.0 (Windows NT 10.0; rv:68.0) Gecko/20100101 Firefox/68.0" --geo-bypass --referer "https://www.youtube.com/"
-        *
+        * 20201114 Add prevention to download live shows
         * */
 
         while (true) {
@@ -209,10 +209,24 @@ public class TaskItem implements Runnable {
 
             String youtubedl = Utils.getYoutubedlPath();
 
-            String youtubeURL = "https://www.youtube.com/results?search_sort=video_date_uploaded&filters=hour&search_query=" + this.keyword;
+            String youtubeURL = "https://www.youtube.com/results?search_query=" + this.keyword + "&sp=CAISBAgBEAE%253D";
             String downloadDir = this.directory.getAbsolutePath() + "/" + "%(id)s.%(ext)s";
 
-            String[] command = {youtubedl, youtubeURL, "-o", downloadDir, "--max-filesize", String.valueOf(this.PREF_MAX_FILESIZE) + "m", "--download-archive", TaskItem.PREF_LOGFILE, "--no-playlist", "--max-downloads", "4", "--write-info-json", "--write-thumbnail", "--user-agent", "\"Mozilla/5.0 (Windows NT 10.0; rv:68.0) Gecko/20100101 Firefox/68.0\"", "--geo-bypass", "--youtube-skip-dash-manifest","--no-cache-dir","--referer","\"https://www.youtube.com/\"", "--format","best[ext=mp4]", "--no-progress", "--no-continue", "--no-part", "--abort-on-unavailable-fragment", "--fragment-retries", "1", "--hls-prefer-native"};
+            String[] command = {youtubedl, youtubeURL, "-o", downloadDir, "--max-filesize", String.valueOf(this.PREF_MAX_FILESIZE) + "m", "--download-archive", TaskItem.PREF_LOGFILE, "--no-playlist",
+                    "--max-downloads", "4", "--write-info-json", "--write-thumbnail", "--user-agent", "\"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:82.0) Gecko/20100101 Firefox/82.0\"", "--geo-bypass",
+                    "--youtube-skip-dash-manifest","--no-cache-dir","--referer","\"https://www.youtube.com/\"", "--no-progress", "--no-continue", "--no-part",
+                    "--abort-on-unavailable-fragment", "--fragment-retries", "1", "--match-filter", "!is_live & !was_live & availability='public' & filesize > 0", "--format","best"};
+
+            StringBuilder builder = new StringBuilder();
+            for(String s : command) {
+                builder.append(s);
+            }
+            if (this.PREF_LOG_DEBUG){
+                builder.append("--verbose");
+            }
+            String str = builder.toString();
+            System.out.println(str);
+
             Runtime runtime = Runtime.getRuntime();
 
             try {
@@ -224,7 +238,7 @@ public class TaskItem implements Runnable {
                 InputStreamReader eisr = new InputStreamReader(eis);
                 BufferedReader br = new BufferedReader(isr);
                 BufferedReader ebr = new BufferedReader(eisr);
-                String line=null;
+                String line;
                 String errLine=null;
                 while ((line = br.readLine()) != null || (errLine = ebr.readLine()) != null) {
 
@@ -250,7 +264,6 @@ public class TaskItem implements Runnable {
                 try {
                     int exitValue = process.waitFor();
                 } catch (InterruptedException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
 
