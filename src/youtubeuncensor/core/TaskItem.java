@@ -17,8 +17,8 @@ import java.util.logging.Logger;
  */
 public class TaskItem implements Runnable {
 
-    private int id;
-    private String keyword;
+    private final int id;
+    private final String keyword;
     private int nvideos;
     private String status;
     private String lasterror;
@@ -38,7 +38,7 @@ public class TaskItem implements Runnable {
     public boolean PREF_STOP_ON_ERROR;
     public boolean PREF_LOG_DEBUG;
 
-    private File directory;
+    private final File directory;
 
     public TaskItem(int id, String keyword) {
         this.id = id;
@@ -65,6 +65,7 @@ public class TaskItem implements Runnable {
         this.status = TaskItem.STATUS_RUNNING;
         this.thread = new Thread(this);
         thread.setDaemon(true);
+        thread.setPriority(Thread.MIN_PRIORITY);
         if (this.keyword.length() > 5){
             thread.setName(this.keyword.substring(0,5) + "... thread");
         }else{
